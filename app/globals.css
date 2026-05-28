@@ -1,26 +1,170 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #faf7f2;
+  --surface: #ffffff;
+  --ink: #1a1814;
+  --ink-muted: #6b6560;
+  --rule: #e8e2d8;
+
+  --accent: #8b2c1a;
+  --accent-soft: #3d5a4c;
+  --warn: #c97a2b;
+
+  --family-germanic: #3d5a4c;
+  --family-romance: #8b2c1a;
+  --family-slavic: #4a5d7e;
+  --family-proto: #9b8b6f;
+
+  --font-serif: "Source Serif 4", Georgia, serif;
+  --font-sans: "Inter", Arial, sans-serif;
+  --font-ipa: "Gentium Plus", "Charis SIL", serif;
+  --font-mono: "JetBrains Mono", monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-rule: var(--rule);
+
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-warn: var(--warn);
+
+  --color-family-germanic: var(--family-germanic);
+  --color-family-romance: var(--family-romance);
+  --color-family-slavic: var(--family-slavic);
+  --color-family-proto: var(--family-proto);
+
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+  --font-ipa: var(--font-ipa);
+  --font-mono: var(--font-mono);
+
+  --text-13: 0.8125rem;
+  --text-15: 0.9375rem;
+  --text-18: 1.125rem;
+  --text-22: 1.375rem;
+  --text-28: 1.75rem;
+  --text-36: 2.25rem;
+  --text-48: 3rem;
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-body: 1.6;
+  --leading-loose: 1.75;
+
+  --radius-cognate: 0.375rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    linear-gradient(rgba(26, 24, 20, 0.018) 1px, transparent 1px),
+    var(--bg);
+  background-size: 100% 28px;
+  color: var(--ink);
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+/* Font utilities */
+
+.font-ipa {
+  font-family: var(--font-ipa);
+}
+
+.font-cognate-mono {
+  font-family: var(--font-mono);
+}
+
+/* Token preview utilities */
+
+.swatch-bg {
+  background: var(--bg);
+}
+
+.swatch-surface {
+  background: var(--surface);
+}
+
+.swatch-ink {
+  background: var(--ink);
+}
+
+.swatch-rule {
+  background: var(--rule);
+}
+
+.swatch-accent {
+  background: var(--accent);
+}
+
+.swatch-forest {
+  background: var(--accent-soft);
+}
+
+.swatch-warn {
+  background: var(--warn);
+}
+
+.swatch-proto {
+  background: var(--family-proto);
+}
+
+/* Graph preview utilities */
+
+.graph-node-germanic {
+  background: color-mix(in srgb, var(--family-germanic) 15%, var(--surface));
+}
+
+.graph-node-romance {
+  background: color-mix(in srgb, var(--family-romance) 15%, var(--surface));
+}
+
+.graph-node-slavic {
+  background: color-mix(in srgb, var(--family-slavic) 15%, var(--surface));
+}
+
+.graph-node-proto {
+  background: color-mix(in srgb, var(--family-proto) 20%, var(--surface));
+}
+
+.graph-edge-attested {
+  border-top: 1px solid var(--rule);
+}
+
+.graph-edge-speculative {
+  border-top: 1px dashed var(--family-proto);
 }

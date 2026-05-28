@@ -8,10 +8,14 @@ type BadgeProps = {
 };
 
 const variantClasses: Record<BadgeVariant, string> = {
-  attested: "border-accent-soft text-accent-soft",
-  probable: "border-family-proto text-ink-muted",
-  speculative: "border-rule text-ink-muted",
-  warning: "border-warn text-warn",
+  attested:
+    "border-accent-soft bg-surface text-accent-soft",
+  probable:
+    "border-family-proto bg-surface text-ink-muted",
+  speculative:
+    "border-dashed border-family-proto bg-surface text-ink-muted",
+  warning:
+    "border-warn bg-[color-mix(in_srgb,var(--warn)_12%,var(--surface))] text-warn",
 };
 
 export function Badge({ children, variant = "attested" }: BadgeProps) {

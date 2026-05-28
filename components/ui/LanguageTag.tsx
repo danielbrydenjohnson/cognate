@@ -14,6 +14,14 @@ const familyBorderClasses: Record<LanguageFamily, string> = {
   other: "border-l-rule",
 };
 
+const familyTextClasses: Record<LanguageFamily, string> = {
+  germanic: "text-family-germanic",
+  romance: "text-family-romance",
+  slavic: "text-family-slavic",
+  proto: "text-family-proto",
+  other: "text-ink-muted",
+};
+
 export function LanguageTag({
   code,
   name,
@@ -22,8 +30,9 @@ export function LanguageTag({
   return (
     <span
       className={[
-        "inline-flex items-center gap-2 border border-l-2 border-rule bg-surface px-2 py-1 font-sans text-13 font-medium uppercase tracking-[0.12em] text-ink",
+        "inline-flex items-center border border-l-2 border-rule bg-surface px-2.5 py-1 font-sans text-13 font-medium uppercase tracking-[0.12em]",
         familyBorderClasses[family],
+        familyTextClasses[family],
       ].join(" ")}
       title={name}
     >
