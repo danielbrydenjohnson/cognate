@@ -51,6 +51,38 @@ type ConceptModeRow = {
   text: string;
 };
 
+type FalseFriendRow = {
+  id: string;
+  concept_id: string | null;
+  word_a_language_code: string;
+  word_a_form: string;
+  word_b_language_code: string;
+  word_b_form: string;
+  warning: string;
+  severity: FalseFriendSeverity;
+  source: string;
+  reviewed_status: string;
+};
+
+export type FalseFriendSeverity = "low" | "medium" | "high";
+
+export type FalseFriend = {
+  id: string;
+  conceptId: string | null;
+  wordA: {
+    languageCode: string;
+    form: string;
+  };
+  wordB: {
+    languageCode: string;
+    form: string;
+  };
+  warning: string;
+  severity: FalseFriendSeverity;
+  source: string;
+  reviewedStatus: string;
+};
+
 export type AdminConceptSummary = {
   id: string;
   label: string;
@@ -236,6 +268,87 @@ function getConceptModes(
   }));
 }
 
+function mapFalseFriendRow(row: FalseFriendRow): FalseFriend {
+  return {
+    id: row.id,
+    conceptId: row.concept_id,
+    wordA: {
+      languageCode: row.word_a_language_code,
+      form: row.word_a_form,
+    },
+    wordB: {
+      languageCode: row.word_b_language_code,
+      form: row.word_b_form,
+    },
+    warning: row.warning,
+    severity: row.severity,
+    source: row.source,
+    reviewedStatus: row.reviewed_status,
+  };
+}
+
+function getFalseFriendRows(db: Database.Database): FalseFriendRow[] {
+  return db
+    .prepare(
+      `
+      SELECT
+        id,
+        concept_id,
+        word_a_language_code,
+        word_a_form,
+        word_b_language_code,
+        word_b_form,
+        warning,
+        severity,
+        source,
+        reviewed_status
+      FROM false_friends
+      ORDER BY
+        CASE severity
+          WHEN 'high' THEN 1
+          WHEN 'medium' THEN 2
+          WHEN 'low' THEN 3
+          ELSE 99
+        END ASC,
+        id ASC
+    `,
+    )
+    .all() as FalseFriendRow[];
+}
+
+function getFalseFriendRowsByConceptId(
+  db: Database.Database,
+  conceptId: string,
+): FalseFriendRow[] {
+  return db
+    .prepare(
+      `
+      SELECT
+        id,
+        concept_id,
+        word_a_language_code,
+        word_a_form,
+        word_b_language_code,
+        word_b_form,
+        warning,
+        severity,
+        source,
+        reviewed_status
+      FROM false_friends
+      WHERE concept_id = ?
+      ORDER BY
+        CASE severity
+          WHEN 'high' THEN 1
+          WHEN 'medium' THEN 2
+          WHEN 'low' THEN 3
+          ELSE 99
+        END ASC,
+        id ASC
+    `,
+    )
+    .all(conceptId) as FalseFriendRow[];
+}
+
 function buildConcept(
   db: Database.Database,
   conceptRow: ConceptRow,
@@ -337,6 +450,26 @@ export function getDailyConcept(date = new Date()): CognateConcept {
   }
 
   return concept;
+}
+
+export function getFalseFriends(): FalseFriend[] {
+  const db = getDatabase();
+
+  try {
+    return getFalseFriendRows(db).map(mapFalseFriendRow);
+  } finally {
+    db.close();
+  }
+}
+
+export function getFalseFriendsByConceptId(conceptId: string): FalseFriend[] {
+  const db = getDatabase();
+
+  try {
+    return getFalseFriendRowsByConceptId(db, conceptId).map(mapFalseFriendRow);
+  } finally {
+    db.close();
+  }
 }
 
 export function getAdminConceptSummaries(): AdminConceptSummary[] {
