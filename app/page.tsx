@@ -1,33 +1,7 @@
 import Link from "next/link";
+import { concepts } from "@/data/concepts";
 
-const featuredConcepts = [
-  {
-    label: "NIGHT",
-    href: "/concept/night",
-    description: "night, Nacht, nacht, natt, nuit, noche, notte, noapte",
-  },
-  {
-    label: "MOTHER",
-    href: "#",
-    description: "A family-root classic across Germanic and Romance languages.",
-  },
-  {
-    label: "EAT",
-    href: "#",
-    description: "A simple verb with messy historical paths. Naturally.",
-  },
-];
-
-const dailyWords = [
-  { language: "English", form: "night", family: "Germanic" },
-  { language: "German", form: "Nacht", family: "Germanic" },
-  { language: "Dutch", form: "nacht", family: "Germanic" },
-  { language: "Swedish", form: "natt", family: "Germanic" },
-  { language: "French", form: "nuit", family: "Romance" },
-  { language: "Spanish", form: "noche", family: "Romance" },
-  { language: "Italian", form: "notte", family: "Romance" },
-  { language: "Romanian", form: "noapte", family: "Romance" },
-];
+const dailyConcept = concepts[0];
 
 export default function Home() {
   return (
@@ -39,7 +13,10 @@ export default function Home() {
           </Link>
 
           <nav className="hidden items-center gap-6 font-sans text-13 font-medium uppercase tracking-[0.16em] text-ink-muted sm:flex">
-            <Link href="/concept/night" className="hover:text-accent">
+            <Link href="/concept" className="hover:text-accent">
+              Concepts
+            </Link>
+            <Link href={`/concept/${dailyConcept.id}`} className="hover:text-accent">
               Explore
             </Link>
             <Link href="/design-system" className="hover:text-accent">
@@ -67,18 +44,18 @@ export default function Home() {
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
-                href="/concept/night"
+                href={`/concept/${dailyConcept.id}`}
                 className="inline-flex items-center justify-center border border-accent bg-accent px-5 py-3 font-sans text-15 font-medium text-white transition hover:bg-ink"
               >
-                Explore NIGHT
+                Explore {dailyConcept.label}
               </Link>
 
-              <a
-                href="#featured"
+              <Link
+                href="/concept"
                 className="inline-flex items-center justify-center border border-rule bg-surface px-5 py-3 font-sans text-15 font-medium text-ink transition hover:border-accent hover:text-accent"
               >
                 Browse concepts
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -88,35 +65,36 @@ export default function Home() {
             </p>
 
             <h2 className="mt-3 font-serif text-36 leading-tight text-ink">
-              NIGHT
+              {dailyConcept.label}
             </h2>
 
             <p className="mt-3 text-15 leading-body text-ink-muted">
-              One meaning. Two visible families. A useful first demo because it
-              shows Cognate’s actual shape: concept first, words second.
+              {dailyConcept.definition} {dailyConcept.summary}
             </p>
 
             <div className="mt-6 grid gap-px border border-rule bg-rule">
-              {dailyWords.map((word) => (
-                <div
-                  key={`${word.language}-${word.form}`}
-                  className="grid grid-cols-[90px_1fr_90px] items-center gap-3 bg-surface px-3 py-2"
-                >
-                  <span className="font-sans text-13 text-ink-muted">
-                    {word.language}
-                  </span>
-                  <span className="font-serif text-18 text-ink">
-                    {word.form}
-                  </span>
-                  <span className="text-right font-sans text-[0.7rem] uppercase tracking-[0.12em] text-ink-muted">
-                    {word.family}
-                  </span>
-                </div>
-              ))}
+              {dailyConcept.clusters.flatMap((cluster) =>
+                cluster.words.map((word) => (
+                  <div
+                    key={`${word.languageCode}-${word.form}`}
+                    className="grid grid-cols-[90px_1fr_90px] items-center gap-3 bg-surface px-3 py-2"
+                  >
+                    <span className="font-sans text-13 text-ink-muted">
+                      {word.language}
+                    </span>
+                    <span className="font-serif text-18 text-ink">
+                      {word.form}
+                    </span>
+                    <span className="text-right font-sans text-[0.7rem] uppercase tracking-[0.12em] text-ink-muted">
+                      {cluster.family}
+                    </span>
+                  </div>
+                )),
+              )}
             </div>
 
             <Link
-              href="/concept/night"
+              href={`/concept/${dailyConcept.id}`}
               className="mt-5 inline-block font-sans text-13 font-medium uppercase tracking-[0.16em] text-accent hover:text-ink"
             >
               Open concept
@@ -142,10 +120,10 @@ export default function Home() {
           </div>
 
           <div className="grid gap-px border border-rule bg-rule md:grid-cols-3">
-            {featuredConcepts.map((concept) => (
+            {concepts.map((concept) => (
               <Link
-                key={concept.label}
-                href={concept.href}
+                key={concept.id}
+                href={`/concept/${concept.id}`}
                 className="bg-surface p-5 transition hover:bg-bg"
               >
                 <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-accent">
@@ -155,7 +133,7 @@ export default function Home() {
                   {concept.label}
                 </h3>
                 <p className="mt-3 text-15 leading-body text-ink-muted">
-                  {concept.description}
+                  {concept.definition}
                 </p>
               </Link>
             ))}
@@ -173,22 +151,13 @@ export default function Home() {
           </div>
 
           <div className="grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-5">
-            {["Explore", "Learn", "Test", "Review", "Bridge"].map((mode) => (
-              <div key={mode} className="bg-surface p-4">
+            {dailyConcept.modes.map((mode) => (
+              <div key={mode.name} className="bg-surface p-4">
                 <p className="font-sans text-13 font-medium uppercase tracking-[0.16em] text-accent">
-                  {mode}
+                  {mode.name}
                 </p>
                 <p className="mt-3 text-15 leading-body text-ink-muted">
-                  {mode === "Explore" &&
-                    "Browse concepts and cognate clusters."}
-                  {mode === "Learn" &&
-                    "Read short explanations of roots and sound patterns."}
-                  {mode === "Test" &&
-                    "Check whether you recognise true relationships."}
-                  {mode === "Review" &&
-                    "Save word families worth remembering."}
-                  {mode === "Bridge" &&
-                    "Use languages you know to learn the next one faster."}
+                  {mode.text}
                 </p>
               </div>
             ))}
