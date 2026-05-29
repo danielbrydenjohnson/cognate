@@ -95,6 +95,22 @@ export type AdminConceptSummary = {
   languageCount: number;
 };
 
+export type ConceptCurationChecklistItem = {
+  id: string;
+  label: string;
+  passed: boolean;
+  detail: string;
+};
+
+export type ConceptCurationReport = {
+  conceptId: string;
+  totalChecks: number;
+  passedChecks: number;
+  failedChecks: number;
+  isComplete: boolean;
+  items: ConceptCurationChecklistItem[];
+};
+
 const databasePath = path.join(process.cwd(), "db", "cognate.sqlite");
 
 function getDatabase() {
@@ -406,6 +422,150 @@ function buildConcept(
   };
 }
 
+export function buildConceptCurationReport(
+  concept: CognateConcept,
+): ConceptCurationReport {
+  const wordCount = concept.clusters.reduce(
+    (total, cluster) => total + cluster.words.length,
+    0,
+  );
+
+  const allClustersHaveAncestor = concept.clusters.every((cluster) =>
+    Boolean(cluster.ancestor.trim()),
+  );
+
+  const allClustersHaveConfidence = concept.clusters.every((cluster) =>
+    Boolean(cluster.confidence.trim()),
+  );
+
+  const allClustersHaveWords = concept.clusters.every(
+    (cluster) => cluster.words.length > 0,
+  );
+
+  const allWordsHaveIpa = concept.clusters.every((cluster) =>
+    cluster.words.every((word) => Boolean(word.ipa.trim())),
+  );
+
+  const allWordsHaveNotes = concept.clusters.every((cluster) =>
+    cluster.words.every((word) => Boolean(word.note.trim())),
+  );
+
+  const items: ConceptCurationChecklistItem[] = [
+    {
+      id: "concept-definition",
+      label: "Concept has definition",
+      passed: Boolean(concept.definition.trim()),
+      detail: concept.definition.trim()
+        ? "Definition is present."
+        : "Missing definition. This concept is not ready for review.",
+    },
+    {
+      id: "concept-source-note",
+      label: "Concept has source note",
+      passed: Boolean(concept.sourceNote.trim()),
+      detail: concept.sourceNote.trim()
+        ? "Source note is present."
+        : "Missing source note. Etymology claims need traceability.",
+    },
+    {
+      id: "concept-summary",
+      label: "Concept has summary",
+      passed: Boolean(concept.summary.trim()),
+      detail: concept.summary.trim()
+        ? "Summary is present."
+        : "Missing summary. Public pages need a short concept overview.",
+    },
+    {
+      id: "concept-learn-content",
+      label: "Concept has learn paragraphs",
+      passed:
+        Boolean(concept.learn.title.trim()) &&
+        concept.learn.paragraphs.length > 0 &&
+        concept.learn.paragraphs.every((paragraph) =>
+          Boolean(paragraph.trim()),
+        ),
+      detail:
+        concept.learn.paragraphs.length > 0
+          ? `${concept.learn.paragraphs.length} learn paragraph${
+              concept.learn.paragraphs.length === 1 ? "" : "s"
+            } present.`
+          : "Missing learn content. This weakens the actual learning loop.",
+    },
+    {
+      id: "cognate-clusters-exist",
+      label: "At least one cognate cluster exists",
+      passed: concept.clusters.length > 0,
+      detail:
+        concept.clusters.length > 0
+          ? `${concept.clusters.length} cluster${
+              concept.clusters.length === 1 ? "" : "s"
+            } present.`
+          : "No clusters found. This concept has no etymology product value yet.",
+    },
+    {
+      id: "cluster-ancestor-forms",
+      label: "All clusters have ancestor forms",
+      passed: concept.clusters.length > 0 && allClustersHaveAncestor,
+      detail: allClustersHaveAncestor
+        ? "Every cluster has an ancestor form."
+        : "One or more clusters are missing an ancestor form.",
+    },
+    {
+      id: "cluster-confidence-labels",
+      label: "All clusters have confidence labels",
+      passed: concept.clusters.length > 0 && allClustersHaveConfidence,
+      detail: allClustersHaveConfidence
+        ? "Every cluster has a confidence label."
+        : "One or more clusters are missing confidence labels.",
+    },
+    {
+      id: "cluster-word-coverage",
+      label: "All clusters contain words",
+      passed: concept.clusters.length > 0 && allClustersHaveWords,
+      detail: allClustersHaveWords
+        ? "Every cluster contains at least one word."
+        : "One or more clusters are empty.",
+    },
+    {
+      id: "word-ipa-coverage",
+      label: "All words have IPA",
+      passed: wordCount > 0 && allWordsHaveIpa,
+      detail: allWordsHaveIpa
+        ? "Every word has IPA."
+        : "One or more words are missing IPA.",
+    },
+    {
+      id: "word-note-coverage",
+      label: "All words have notes",
+      passed: wordCount > 0 && allWordsHaveNotes,
+      detail: allWordsHaveNotes
+        ? "Every word has a note."
+        : "One or more words are missing notes.",
+    },
+    {
+      id: "concept-reviewed-status",
+      label: "Concept has reviewed status",
+      passed: Boolean(concept.reviewedStatus.trim()),
+      detail: concept.reviewedStatus.trim()
+        ? `Current status: ${concept.reviewedStatus}.`
+        : "Missing reviewed status.",
+    },
+  ];
+
+  const passedChecks = items.filter((item) => item.passed).length;
+  const totalChecks = items.length;
+  const failedChecks = totalChecks - passedChecks;
+
+  return {
+    conceptId: concept.id,
+    totalChecks,
+    passedChecks,
+    failedChecks,
+    isComplete: failedChecks === 0,
+    items,
+  };
+}
+
 export function getConcepts(): CognateConcept[] {
   const db = getDatabase();
 
@@ -430,6 +590,18 @@ export function getConceptById(id: string): CognateConcept | undefined {
   } finally {
     db.close();
   }
+}
+
+export function getConceptCurationReport(
+  conceptId: string,
+): ConceptCurationReport | undefined {
+  const concept = getConceptById(conceptId);
+
+  if (!concept) {
+    return undefined;
+  }
+
+  return buildConceptCurationReport(concept);
 }
 
 export function getDailyConcept(date = new Date()): CognateConcept {
