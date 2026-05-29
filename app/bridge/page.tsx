@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { concepts } from "@/data/concepts";
+import { getConcepts } from "@/lib/concepts";
 
 type BridgePageProps = {
   searchParams?: Promise<{
@@ -36,7 +36,12 @@ const languageOptions = [
   { code: "ro", label: "Romanian" },
 ];
 
-function findBridgeMatches(knownCode: string, targetCode: string): BridgeMatch[] {
+function findBridgeMatches(
+  knownCode: string,
+  targetCode: string,
+): BridgeMatch[] {
+  const concepts = getConcepts();
+
   return concepts.flatMap((concept) =>
     concept.clusters.flatMap((cluster) => {
       const knownWord = cluster.words.find(
@@ -101,6 +106,9 @@ export default async function BridgePage({ searchParams }: BridgePageProps) {
             <Link href="/concept" className="hover:text-accent">
               Concepts
             </Link>
+            <Link href="/false-friends" className="hover:text-accent">
+              False friends
+            </Link>
             <Link href="/design-system" className="hover:text-accent">
               Design system
             </Link>
@@ -123,12 +131,32 @@ export default async function BridgePage({ searchParams }: BridgePageProps) {
               cognate cluster, giving you a faster mental bridge into the target
               vocabulary.
             </p>
+
+            <div className="mt-8 border border-rule bg-surface p-5">
+              <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-accent">
+                Avoid the traps
+              </p>
+
+              <h2 className="mt-3 font-serif text-28 leading-tight text-ink">
+                Not every familiar-looking word is your friend.
+              </h2>
+
+              <p className="mt-3 max-w-[680px] text-15 leading-body text-ink-muted">
+                Bridge mode shows useful shared roots. False friends show where
+                similarity misleads you. Both matter if the goal is learning
+                faster without confidently learning nonsense.
+              </p>
+
+              <Link
+                href="/false-friends"
+                className="mt-5 inline-block font-sans text-13 font-medium uppercase tracking-[0.16em] text-accent hover:text-ink"
+              >
+                Study false friends
+              </Link>
+            </div>
           </div>
 
-          <form
-            action="/bridge"
-            className="border border-rule bg-surface p-5"
-          >
+          <form action="/bridge" className="border border-rule bg-surface p-5">
             <label className="block font-sans text-13 font-medium uppercase tracking-[0.16em] text-ink-muted">
               I know
             </label>
@@ -263,6 +291,13 @@ export default async function BridgePage({ searchParams }: BridgePageProps) {
                 the current demo dataset does not yet have an approved concept
                 where both selected languages appear in the same cluster.
               </p>
+
+              <Link
+                href="/false-friends"
+                className="mt-5 inline-block font-sans text-13 font-medium uppercase tracking-[0.16em] text-accent hover:text-ink"
+              >
+                Study false friends instead
+              </Link>
             </div>
           )}
         </section>
