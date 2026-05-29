@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { concepts } from "@/data/concepts";
+import { concepts, getDailyConcept } from "@/data/concepts";
 
-const dailyConcept = concepts[0];
+export const revalidate = 3600;
+
+const dailyConcept = getDailyConcept();
 
 export default function Home() {
   return (
