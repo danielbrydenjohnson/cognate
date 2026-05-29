@@ -19,6 +19,9 @@ export default function AdminConceptsPage() {
             <Link href="/concept" className="hover:text-accent">
               Public concepts
             </Link>
+            <Link href="/admin/false-friends" className="hover:text-accent">
+              False friends
+            </Link>
           </nav>
         </header>
 

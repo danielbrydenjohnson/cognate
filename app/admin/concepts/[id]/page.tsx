@@ -47,6 +47,9 @@ export default async function AdminConceptDetailPage({
             <Link href="/admin/concepts" className="hover:text-accent">
               All concepts
             </Link>
+            <Link href="/admin/false-friends" className="hover:text-accent">
+              False friends
+            </Link>
           </nav>
         </header>
 
