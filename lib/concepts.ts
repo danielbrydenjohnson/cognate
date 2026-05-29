@@ -6,6 +6,7 @@ import type {
   CognateConcept,
   ConceptFamily,
   ConceptWord,
+  CurationConfidence,
   ProductMode,
 } from "@/data/concepts/night";
 
@@ -15,6 +16,7 @@ type ConceptRow = {
   definition: string;
   part_of_speech: string;
   difficulty: string;
+  source: string;
   reviewed_status: string;
   summary: string;
   source_note: string;
@@ -24,8 +26,11 @@ type CognateSetRow = {
   id: string;
   label: string;
   ancestor_form: string;
+  ancestor_language: string | null;
   language_family: string;
-  confidence: "approved" | "reviewed" | "speculative";
+  notes: string | null;
+  source: string;
+  reviewed_status: string;
 };
 
 type WordRow = {
@@ -35,6 +40,10 @@ type WordRow = {
   form: string;
   ipa: string;
   notes: string;
+  source: string;
+  reviewed_status: string;
+  relationship_confidence: CurationConfidence;
+  relationship_source: string;
 };
 
 type LearnSectionRow = {
@@ -132,6 +141,7 @@ function getConceptRows(db: Database.Database): ConceptRow[] {
         definition,
         part_of_speech,
         difficulty,
+        source,
         reviewed_status,
         summary,
         source_note
@@ -155,6 +165,7 @@ function getConceptRowById(
         definition,
         part_of_speech,
         difficulty,
+        source,
         reviewed_status,
         summary,
         source_note
@@ -173,21 +184,17 @@ function getCognateSetRows(
     .prepare(
       `
       SELECT
-        cs.id,
-        cs.label,
-        cs.ancestor_form,
-        cs.language_family,
-        MIN(wcs.confidence) AS confidence
-      FROM cognate_sets cs
-      JOIN word_cognate_sets wcs
-        ON wcs.cognate_set_id = cs.id
-      WHERE cs.concept_id = ?
-      GROUP BY
-        cs.id,
-        cs.label,
-        cs.ancestor_form,
-        cs.language_family
-      ORDER BY cs.id ASC
+        id,
+        label,
+        ancestor_form,
+        ancestor_language,
+        language_family,
+        notes,
+        source,
+        reviewed_status
+      FROM cognate_sets
+      WHERE concept_id = ?
+      ORDER BY id ASC
     `,
     )
     .all(conceptId) as CognateSetRow[];
@@ -203,7 +210,11 @@ function getWordRows(db: Database.Database, conceptId: string): WordRow[] {
         w.language_name,
         w.form,
         w.ipa,
-        w.notes
+        w.notes,
+        w.source,
+        w.reviewed_status,
+        wcs.confidence AS relationship_confidence,
+        wcs.source AS relationship_source
       FROM words w
       JOIN word_cognate_sets wcs
         ON wcs.word_id = w.id
@@ -367,6 +378,18 @@ function getFalseFriendRowsByConceptId(
     .all(conceptId) as FalseFriendRow[];
 }
 
+function getClusterConfidence(words: ConceptWord[]): CurationConfidence {
+  if (words.some((word) => word.relationshipConfidence === "speculative")) {
+    return "speculative";
+  }
+
+  if (words.some((word) => word.relationshipConfidence === "reviewed")) {
+    return "reviewed";
+  }
+
+  return "approved";
+}
+
 function buildConcept(
   db: Database.Database,
   conceptRow: ConceptRow,
@@ -384,6 +407,10 @@ function buildConcept(
         form: wordRow.form,
         ipa: wordRow.ipa,
         note: wordRow.notes,
+        source: wordRow.source,
+        reviewedStatus: wordRow.reviewed_status,
+        relationshipConfidence: wordRow.relationship_confidence,
+        relationshipSource: wordRow.relationship_source,
       }));
 
     return {
@@ -391,7 +418,11 @@ function buildConcept(
       title: setRow.label,
       family: setRow.language_family as ConceptFamily,
       ancestor: setRow.ancestor_form,
-      confidence: setRow.confidence,
+      ancestorLanguage: setRow.ancestor_language ?? undefined,
+      confidence: getClusterConfidence(words),
+      note: setRow.notes ?? undefined,
+      source: setRow.source,
+      reviewedStatus: setRow.reviewed_status,
       words,
     };
   });
@@ -410,6 +441,7 @@ function buildConcept(
     definition: conceptRow.definition,
     partOfSpeech: conceptRow.part_of_speech,
     difficulty: conceptRow.difficulty,
+    source: conceptRow.source,
     reviewedStatus: conceptRow.reviewed_status,
     languages,
     summary: conceptRow.summary,
@@ -452,6 +484,14 @@ export function buildConceptCurationReport(
     Boolean(cluster.confidence.trim()),
   );
 
+  const allClustersHaveSources = concept.clusters.every((cluster) =>
+    Boolean(cluster.source?.trim()),
+  );
+
+  const allClustersHaveReviewedStatus = concept.clusters.every((cluster) =>
+    Boolean(cluster.reviewedStatus?.trim()),
+  );
+
   const allClustersHaveWords = concept.clusters.every(
     (cluster) => cluster.words.length > 0,
   );
@@ -464,6 +504,22 @@ export function buildConceptCurationReport(
     cluster.words.every((word) => Boolean(word.note.trim())),
   );
 
+  const allWordsHaveSources = concept.clusters.every((cluster) =>
+    cluster.words.every((word) => Boolean(word.source?.trim())),
+  );
+
+  const allWordsHaveReviewedStatus = concept.clusters.every((cluster) =>
+    cluster.words.every((word) => Boolean(word.reviewedStatus?.trim())),
+  );
+
+  const allWordRelationshipsHaveConfidence = concept.clusters.every((cluster) =>
+    cluster.words.every((word) => Boolean(word.relationshipConfidence?.trim())),
+  );
+
+  const allWordRelationshipsHaveSources = concept.clusters.every((cluster) =>
+    cluster.words.every((word) => Boolean(word.relationshipSource?.trim())),
+  );
+
   const items: ConceptCurationChecklistItem[] = [
     {
       id: "concept-definition",
@@ -472,6 +528,14 @@ export function buildConceptCurationReport(
       detail: concept.definition.trim()
         ? "Definition is present."
         : "Missing definition. This concept is not ready for review.",
+    },
+    {
+      id: "concept-source",
+      label: "Concept has source",
+      passed: Boolean(concept.source?.trim()),
+      detail: concept.source?.trim()
+        ? `Concept source: ${concept.source}.`
+        : "Missing concept source. This needs traceability before real curation.",
     },
     {
       id: "concept-source-note",
@@ -533,6 +597,22 @@ export function buildConceptCurationReport(
         : "One or more clusters are missing confidence labels.",
     },
     {
+      id: "cluster-sources",
+      label: "All clusters have sources",
+      passed: concept.clusters.length > 0 && allClustersHaveSources,
+      detail: allClustersHaveSources
+        ? "Every cluster has a source."
+        : "One or more clusters are missing sources.",
+    },
+    {
+      id: "cluster-reviewed-status",
+      label: "All clusters have reviewed status",
+      passed: concept.clusters.length > 0 && allClustersHaveReviewedStatus,
+      detail: allClustersHaveReviewedStatus
+        ? "Every cluster has a reviewed status."
+        : "One or more clusters are missing reviewed status.",
+    },
+    {
       id: "cluster-word-coverage",
       label: "All clusters contain words",
       passed: concept.clusters.length > 0 && allClustersHaveWords,
@@ -555,6 +635,38 @@ export function buildConceptCurationReport(
       detail: allWordsHaveNotes
         ? "Every word has a note."
         : "One or more words are missing notes.",
+    },
+    {
+      id: "word-sources",
+      label: "All words have sources",
+      passed: wordCount > 0 && allWordsHaveSources,
+      detail: allWordsHaveSources
+        ? "Every word has a source."
+        : "One or more words are missing sources.",
+    },
+    {
+      id: "word-reviewed-status",
+      label: "All words have reviewed status",
+      passed: wordCount > 0 && allWordsHaveReviewedStatus,
+      detail: allWordsHaveReviewedStatus
+        ? "Every word has a reviewed status."
+        : "One or more words are missing reviewed status.",
+    },
+    {
+      id: "word-relationship-confidence",
+      label: "All word relationships have confidence",
+      passed: wordCount > 0 && allWordRelationshipsHaveConfidence,
+      detail: allWordRelationshipsHaveConfidence
+        ? "Every word relationship has a confidence label."
+        : "One or more word relationships are missing confidence labels.",
+    },
+    {
+      id: "word-relationship-sources",
+      label: "All word relationships have sources",
+      passed: wordCount > 0 && allWordRelationshipsHaveSources,
+      detail: allWordRelationshipsHaveSources
+        ? "Every word relationship has a source."
+        : "One or more word relationships are missing sources.",
     },
     {
       id: "concept-reviewed-status",
