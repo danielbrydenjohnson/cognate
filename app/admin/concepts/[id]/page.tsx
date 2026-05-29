@@ -18,6 +18,51 @@ export function generateStaticParams() {
   }));
 }
 
+function MetadataItem({
+  label,
+  value,
+  mono = false,
+}: {
+  label: string;
+  value: string | undefined;
+  mono?: boolean;
+}) {
+  return (
+    <div>
+      <dt className="font-sans text-13 uppercase tracking-[0.14em] text-ink-muted">
+        {label}
+      </dt>
+      <dd
+        className={`mt-1 text-ink ${
+          mono ? "font-mono text-14" : "text-15 leading-body"
+        }`}
+      >
+        {value?.trim() ? value : "Missing"}
+      </dd>
+    </div>
+  );
+}
+
+function StatusBadge({
+  value,
+  tone = "neutral",
+}: {
+  value: string | undefined;
+  tone?: "neutral" | "accent";
+}) {
+  return (
+    <span
+      className={`w-fit border px-2 py-1 font-sans text-[0.7rem] uppercase tracking-[0.14em] ${
+        tone === "accent"
+          ? "border-accent text-accent"
+          : "border-rule text-ink-muted"
+      }`}
+    >
+      {value?.trim() ? value : "Missing"}
+    </span>
+  );
+}
+
 export default async function AdminConceptDetailPage({
   params,
 }: AdminConceptRouteProps) {
@@ -117,11 +162,17 @@ export default async function AdminConceptDetailPage({
               </h2>
             </div>
 
-            <p className="max-w-[520px] text-15 leading-body text-ink-muted">
-              This is the boring bit that actually matters. A pretty graph with
-              weak sources, missing IPA, or fake confidence labels is just a
-              decorated spreadsheet with delusions.
-            </p>
+            <div className="max-w-[520px]">
+              <p className="text-15 leading-body text-ink-muted">
+                This is the boring bit that actually matters. A pretty graph
+                with weak sources, missing IPA, or fake confidence labels is
+                just a decorated spreadsheet with delusions.
+              </p>
+
+              <p className="mt-3 text-15 leading-body text-ink">
+                Next: {curationReport.nextAction}
+              </p>
+            </div>
           </div>
 
           <div className="mt-6 grid gap-px border border-rule bg-rule md:grid-cols-2">
@@ -158,35 +209,21 @@ export default async function AdminConceptDetailPage({
             </p>
 
             <dl className="mt-5 grid gap-3 text-15 leading-body">
-              <div>
-                <dt className="font-sans text-13 uppercase tracking-[0.14em] text-ink-muted">
-                  ID
-                </dt>
-                <dd className="mt-1 font-mono text-14 text-ink">{concept.id}</dd>
-              </div>
-
-              <div>
-                <dt className="font-sans text-13 uppercase tracking-[0.14em] text-ink-muted">
-                  Part of speech
-                </dt>
-                <dd className="mt-1 text-ink">{concept.partOfSpeech}</dd>
-              </div>
-
-              <div>
-                <dt className="font-sans text-13 uppercase tracking-[0.14em] text-ink-muted">
-                  Difficulty
-                </dt>
-                <dd className="mt-1 text-ink">{concept.difficulty}</dd>
-              </div>
-
-              <div>
-                <dt className="font-sans text-13 uppercase tracking-[0.14em] text-ink-muted">
-                  Languages
-                </dt>
-                <dd className="mt-1 text-ink">
-                  {concept.languages.join(", ")}
-                </dd>
-              </div>
+              <MetadataItem label="ID" value={concept.id} mono />
+              <MetadataItem
+                label="Part of speech"
+                value={concept.partOfSpeech}
+              />
+              <MetadataItem label="Difficulty" value={concept.difficulty} />
+              <MetadataItem label="Source" value={concept.source} />
+              <MetadataItem
+                label="Reviewed status"
+                value={concept.reviewedStatus}
+              />
+              <MetadataItem
+                label="Languages"
+                value={concept.languages.join(", ")}
+              />
             </dl>
           </div>
 
@@ -254,14 +291,27 @@ export default async function AdminConceptDetailPage({
                       {cluster.title}
                     </h3>
 
-                    <p className="mt-2 text-15 leading-body text-ink-muted">
-                      Ancestor: {cluster.ancestor}
-                    </p>
+                    <dl className="mt-4 grid gap-3 text-15 leading-body sm:grid-cols-2">
+                      <MetadataItem label="Ancestor" value={cluster.ancestor} />
+                      <MetadataItem
+                        label="Ancestor language"
+                        value={cluster.ancestorLanguage}
+                      />
+                      <MetadataItem label="Source" value={cluster.source} />
+                      <MetadataItem
+                        label="Reviewed status"
+                        value={cluster.reviewedStatus}
+                      />
+                    </dl>
+
+                    {cluster.note ? (
+                      <p className="mt-4 text-15 leading-body text-ink-muted">
+                        {cluster.note}
+                      </p>
+                    ) : null}
                   </div>
 
-                  <span className="w-fit border border-rule bg-bg px-2 py-1 font-sans text-[0.7rem] uppercase tracking-[0.14em] text-ink-muted">
-                    {cluster.confidence}
-                  </span>
+                  <StatusBadge value={cluster.confidence} tone="accent" />
                 </div>
 
                 <div className="mt-5 grid gap-px border border-rule bg-rule md:grid-cols-2">
@@ -284,6 +334,22 @@ export default async function AdminConceptDetailPage({
                       <p className="mt-3 text-15 leading-body text-ink-muted">
                         {word.note}
                       </p>
+
+                      <dl className="mt-5 grid gap-3 border-t border-rule pt-4 text-15 leading-body">
+                        <MetadataItem label="Word source" value={word.source} />
+                        <MetadataItem
+                          label="Word reviewed status"
+                          value={word.reviewedStatus}
+                        />
+                        <MetadataItem
+                          label="Relationship confidence"
+                          value={word.relationshipConfidence}
+                        />
+                        <MetadataItem
+                          label="Relationship source"
+                          value={word.relationshipSource}
+                        />
+                      </dl>
                     </div>
                   ))}
                 </div>
