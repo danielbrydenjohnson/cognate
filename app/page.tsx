@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { concepts, getDailyConcept } from "@/data/concepts";
+import { getConcepts, getDailyConcept } from "@/lib/concepts";
 
 export const revalidate = 3600;
 
-const dailyConcept = getDailyConcept();
-
 export default function Home() {
+  const concepts = getConcepts();
+  const dailyConcept = getDailyConcept();
+
   return (
     <main className="min-h-screen px-5 py-6 sm:px-8 lg:px-12">
       <div className="mx-auto max-w-[1120px]">

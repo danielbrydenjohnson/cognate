@@ -1,0 +1,94 @@
+import Link from "next/link";
+import { getAdminConceptSummaries } from "@/lib/concepts";
+
+export default function AdminPage() {
+  const concepts = getAdminConceptSummaries();
+  const totalWords = concepts.reduce(
+    (total, concept) => total + concept.wordCount,
+    0,
+  );
+  const totalClusters = concepts.reduce(
+    (total, concept) => total + concept.clusterCount,
+    0,
+  );
+
+  return (
+    <main className="min-h-screen px-5 py-6 sm:px-8 lg:px-12">
+      <div className="mx-auto max-w-[1120px]">
+        <header className="flex items-center justify-between border-b border-rule pb-5">
+          <Link href="/" className="font-serif text-28 leading-tight text-ink">
+            Cognate
+          </Link>
+
+          <nav className="hidden items-center gap-6 font-sans text-13 font-medium uppercase tracking-[0.16em] text-ink-muted sm:flex">
+            <Link href="/concept" className="hover:text-accent">
+              Public concepts
+            </Link>
+            <Link href="/admin/concepts" className="hover:text-accent">
+              Admin concepts
+            </Link>
+          </nav>
+        </header>
+
+        <section className="border-b border-rule py-14">
+          <p className="mb-5 font-sans text-13 font-medium uppercase tracking-[0.2em] text-accent">
+            Internal review
+          </p>
+
+          <h1 className="max-w-4xl font-serif text-48 leading-tight text-ink">
+            Cognate admin
+          </h1>
+
+          <p className="mt-5 max-w-[760px] text-18 leading-body text-ink-muted">
+            Read-only content review for the current Cognate database. This is
+            not a public feature and not a CMS yet. It exists so the content
+            model can scale without hand-editing scattered files forever.
+          </p>
+        </section>
+
+        <section className="grid gap-px border border-rule bg-rule py-0 md:grid-cols-3">
+          <div className="bg-surface p-5">
+            <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
+              Concepts
+            </p>
+            <p className="mt-3 font-serif text-48 leading-tight text-ink">
+              {concepts.length}
+            </p>
+          </div>
+
+          <div className="bg-surface p-5">
+            <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
+              Cognate clusters
+            </p>
+            <p className="mt-3 font-serif text-48 leading-tight text-ink">
+              {totalClusters}
+            </p>
+          </div>
+
+          <div className="bg-surface p-5">
+            <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
+              Words
+            </p>
+            <p className="mt-3 font-serif text-48 leading-tight text-ink">
+              {totalWords}
+            </p>
+          </div>
+        </section>
+
+        <section className="py-10">
+          <Link
+            href="/admin/concepts"
+            className="inline-flex border border-accent bg-accent px-5 py-3 font-sans text-15 font-medium text-white transition hover:bg-ink"
+          >
+            Review concepts
+          </Link>
+
+          <p className="mt-5 max-w-[680px] text-15 leading-body text-ink-muted">
+            Next step later: editing. Not now. Read-only first keeps this from
+            turning into a half-built CMS with a superiority complex.
+          </p>
+        </section>
+      </div>
+    </main>
+  );
+}

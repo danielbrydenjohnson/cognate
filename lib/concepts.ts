@@ -51,6 +51,18 @@ type ConceptModeRow = {
   text: string;
 };
 
+export type AdminConceptSummary = {
+  id: string;
+  label: string;
+  definition: string;
+  partOfSpeech: string;
+  difficulty: string;
+  reviewedStatus: string;
+  clusterCount: number;
+  wordCount: number;
+  languageCount: number;
+};
+
 const databasePath = path.join(process.cwd(), "db", "cognate.sqlite");
 
 function getDatabase() {
@@ -325,4 +337,25 @@ export function getDailyConcept(date = new Date()): CognateConcept {
   }
 
   return concept;
+}
+
+export function getAdminConceptSummaries(): AdminConceptSummary[] {
+  return getConcepts().map((concept) => {
+    const wordCount = concept.clusters.reduce(
+      (total, cluster) => total + cluster.words.length,
+      0,
+    );
+
+    return {
+      id: concept.id,
+      label: concept.label,
+      definition: concept.definition,
+      partOfSpeech: concept.partOfSpeech,
+      difficulty: concept.difficulty,
+      reviewedStatus: concept.reviewedStatus,
+      clusterCount: concept.clusters.length,
+      wordCount,
+      languageCount: concept.languages.length,
+    };
+  });
 }
