@@ -8,6 +8,12 @@ type AdminConceptRouteProps = {
   }>;
 };
 
+type CurationChecklistItem = {
+  label: string;
+  passed: boolean;
+  detail: string;
+};
+
 export function generateStaticParams() {
   return getConcepts().map((concept) => ({
     id: concept.id,
@@ -28,6 +34,121 @@ export default async function AdminConceptDetailPage({
     (total, cluster) => total + cluster.words.length,
     0,
   );
+
+  const allClustersHaveAncestor = concept.clusters.every((cluster) =>
+    Boolean(cluster.ancestor.trim()),
+  );
+
+  const allClustersHaveConfidence = concept.clusters.every((cluster) =>
+    Boolean(cluster.confidence.trim()),
+  );
+
+  const allClustersHaveWords = concept.clusters.every(
+    (cluster) => cluster.words.length > 0,
+  );
+
+  const allWordsHaveIpa = concept.clusters.every((cluster) =>
+    cluster.words.every((word) => Boolean(word.ipa.trim())),
+  );
+
+  const allWordsHaveNotes = concept.clusters.every((cluster) =>
+    cluster.words.every((word) => Boolean(word.note.trim())),
+  );
+
+  const curationChecklist: CurationChecklistItem[] = [
+    {
+      label: "Concept has definition",
+      passed: Boolean(concept.definition.trim()),
+      detail: concept.definition.trim()
+        ? "Definition is present."
+        : "Missing definition. This concept is not ready for review.",
+    },
+    {
+      label: "Concept has source note",
+      passed: Boolean(concept.sourceNote.trim()),
+      detail: concept.sourceNote.trim()
+        ? "Source note is present."
+        : "Missing source note. Etymology claims need traceability.",
+    },
+    {
+      label: "Concept has summary",
+      passed: Boolean(concept.summary.trim()),
+      detail: concept.summary.trim()
+        ? "Summary is present."
+        : "Missing summary. Public pages need a short concept overview.",
+    },
+    {
+      label: "Concept has learn paragraphs",
+      passed:
+        Boolean(concept.learn.title.trim()) &&
+        concept.learn.paragraphs.length > 0 &&
+        concept.learn.paragraphs.every((paragraph) =>
+          Boolean(paragraph.trim()),
+        ),
+      detail:
+        concept.learn.paragraphs.length > 0
+          ? `${concept.learn.paragraphs.length} learn paragraph${
+              concept.learn.paragraphs.length === 1 ? "" : "s"
+            } present.`
+          : "Missing learn content. This weakens the actual learning loop.",
+    },
+    {
+      label: "At least one cognate cluster exists",
+      passed: concept.clusters.length > 0,
+      detail:
+        concept.clusters.length > 0
+          ? `${concept.clusters.length} cluster${
+              concept.clusters.length === 1 ? "" : "s"
+            } present.`
+          : "No clusters found. This concept has no etymology product value yet.",
+    },
+    {
+      label: "All clusters have ancestor forms",
+      passed: concept.clusters.length > 0 && allClustersHaveAncestor,
+      detail: allClustersHaveAncestor
+        ? "Every cluster has an ancestor form."
+        : "One or more clusters are missing an ancestor form.",
+    },
+    {
+      label: "All clusters have confidence labels",
+      passed: concept.clusters.length > 0 && allClustersHaveConfidence,
+      detail: allClustersHaveConfidence
+        ? "Every cluster has a confidence label."
+        : "One or more clusters are missing confidence labels.",
+    },
+    {
+      label: "All clusters contain words",
+      passed: concept.clusters.length > 0 && allClustersHaveWords,
+      detail: allClustersHaveWords
+        ? "Every cluster contains at least one word."
+        : "One or more clusters are empty.",
+    },
+    {
+      label: "All words have IPA",
+      passed: wordCount > 0 && allWordsHaveIpa,
+      detail: allWordsHaveIpa
+        ? "Every word has IPA."
+        : "One or more words are missing IPA.",
+    },
+    {
+      label: "All words have notes",
+      passed: wordCount > 0 && allWordsHaveNotes,
+      detail: allWordsHaveNotes
+        ? "Every word has a note."
+        : "One or more words are missing notes.",
+    },
+    {
+      label: "Concept has reviewed status",
+      passed: Boolean(concept.reviewedStatus.trim()),
+      detail: concept.reviewedStatus.trim()
+        ? `Current status: ${concept.reviewedStatus}.`
+        : "Missing reviewed status.",
+    },
+  ];
+
+  const passedChecklistCount = curationChecklist.filter(
+    (item) => item.passed,
+  ).length;
 
   return (
     <main className="min-h-screen px-5 py-6 sm:px-8 lg:px-12">
@@ -95,6 +216,53 @@ export default async function AdminConceptDetailPage({
                 </p>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="border-b border-rule py-10">
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
+                Curation checklist
+              </p>
+
+              <h2 className="mt-2 font-serif text-36 leading-tight text-ink">
+                {passedChecklistCount} of {curationChecklist.length} checks
+                passed
+              </h2>
+            </div>
+
+            <p className="max-w-[520px] text-15 leading-body text-ink-muted">
+              This is the boring bit that actually matters. A pretty graph with
+              weak sources, missing IPA, or fake confidence labels is just a
+              decorated spreadsheet with delusions.
+            </p>
+          </div>
+
+          <div className="mt-6 grid gap-px border border-rule bg-rule md:grid-cols-2">
+            {curationChecklist.map((item) => (
+              <div key={item.label} className="bg-surface p-5">
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="font-serif text-22 leading-tight text-ink">
+                    {item.label}
+                  </h3>
+
+                  <span
+                    className={`w-fit border px-2 py-1 font-sans text-[0.7rem] uppercase tracking-[0.14em] ${
+                      item.passed
+                        ? "border-accent text-accent"
+                        : "border-rule text-ink-muted"
+                    }`}
+                  >
+                    {item.passed ? "Pass" : "Needs work"}
+                  </span>
+                </div>
+
+                <p className="mt-3 text-15 leading-body text-ink-muted">
+                  {item.detail}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -187,7 +355,10 @@ export default async function AdminConceptDetailPage({
 
           <div className="mt-5 grid gap-5">
             {concept.clusters.map((cluster) => (
-              <article key={cluster.id} className="border border-rule bg-surface p-5">
+              <article
+                key={cluster.id}
+                className="border border-rule bg-surface p-5"
+              >
                 <div className="flex flex-col justify-between gap-3 border-b border-rule pb-4 sm:flex-row sm:items-start">
                   <div>
                     <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-accent">
