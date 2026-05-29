@@ -22,6 +22,9 @@ export default function Home() {
             <Link href="/bridge" className="hover:text-accent">
               Bridge
             </Link>
+            <Link href="/false-friends" className="hover:text-accent">
+              False friends
+            </Link>
             <Link
               href={`/concept/${dailyConcept.id}`}
               className="hover:text-accent"
@@ -64,6 +67,13 @@ export default function Home() {
                 className="inline-flex items-center justify-center border border-rule bg-surface px-5 py-3 font-sans text-15 font-medium text-ink transition hover:border-accent hover:text-accent"
               >
                 Try Bridge mode
+              </Link>
+
+              <Link
+                href="/false-friends"
+                className="inline-flex items-center justify-center border border-rule bg-surface px-5 py-3 font-sans text-15 font-medium text-ink transition hover:border-accent hover:text-accent"
+              >
+                Study false friends
               </Link>
 
               <Link
@@ -154,6 +164,41 @@ export default function Home() {
               </Link>
             ))}
           </div>
+        </section>
+
+        <section className="grid gap-10 border-b border-rule py-14 lg:grid-cols-[360px_1fr]">
+          <div>
+            <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
+              False friends
+            </p>
+            <h2 className="mt-2 font-serif text-36 leading-tight text-ink">
+              Some familiar words are traps.
+            </h2>
+          </div>
+
+          <Link
+            href="/false-friends"
+            className="border border-rule bg-surface p-5 transition hover:border-accent hover:bg-bg"
+          >
+            <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-accent">
+              New feature
+            </p>
+
+            <h3 className="mt-3 font-serif text-28 leading-tight text-ink">
+              Explore words that look related but mean something else.
+            </h3>
+
+            <p className="mt-4 max-w-[720px] text-15 leading-body text-ink-muted">
+              Cognates are useful, but pattern recognition can also betray you.
+              The false-friends page collects warnings like English gift vs
+              German Gift, where visual similarity leads learners straight into
+              trouble.
+            </p>
+
+            <p className="mt-5 font-sans text-13 font-medium uppercase tracking-[0.16em] text-accent">
+              Open false friends
+            </p>
+          </Link>
         </section>
 
         <section className="grid gap-10 py-14 lg:grid-cols-[360px_1fr]">
