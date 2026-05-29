@@ -1,7 +1,7 @@
 import { motherConcept } from "@/data/concepts/mother";
 import { nightConcept } from "@/data/concepts/night";
 import { waterConcept } from "@/data/concepts/water";
-import type { CognateConcept } from "@/data/concepts/night";
+import type { CognateConcept } from "@/data/concepts/types";
 
 export const concepts = [
   nightConcept,
