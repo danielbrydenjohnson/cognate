@@ -109,6 +109,14 @@ export type ConceptCurationReport = {
   items: ConceptCurationChecklistItem[];
 };
 
+export type AdminConceptSourceStatus = "missing" | "demo" | "sourced";
+
+export type AdminConceptQueueLabel =
+  | "Needs metadata"
+  | "Demo sourced"
+  | "Needs review"
+  | "Ready";
+
 export type AdminConceptSummary = {
   id: string;
   label: string;
@@ -116,10 +124,14 @@ export type AdminConceptSummary = {
   partOfSpeech: string;
   difficulty: string;
   source: string;
+  sourceStatus: AdminConceptSourceStatus;
   reviewedStatus: string;
   clusterCount: number;
   wordCount: number;
   languageCount: number;
+  queuePriority: number;
+  queueLabel: AdminConceptQueueLabel;
+  queueReason: string;
   curationReport: ConceptCurationReport;
 };
 
@@ -469,6 +481,70 @@ function getNextCurationAction(
   return firstFailedItem.detail;
 }
 
+function getSourceStatus(source: string | undefined): AdminConceptSourceStatus {
+  if (!source?.trim()) {
+    return "missing";
+  }
+
+  if (source === "manual_demo_seed") {
+    return "demo";
+  }
+
+  return "sourced";
+}
+
+function getQueueMetadata({
+  sourceStatus,
+  reviewedStatus,
+  curationReport,
+}: {
+  sourceStatus: AdminConceptSourceStatus;
+  reviewedStatus: string;
+  curationReport: ConceptCurationReport;
+}): {
+  queuePriority: number;
+  queueLabel: AdminConceptQueueLabel;
+  queueReason: string;
+} {
+  if (sourceStatus === "missing") {
+    return {
+      queuePriority: 10,
+      queueLabel: "Needs metadata",
+      queueReason: "Missing source. This concept has no traceability.",
+    };
+  }
+
+  if (curationReport.failedChecks > 0) {
+    return {
+      queuePriority: 20 + curationReport.failedChecks,
+      queueLabel: "Needs metadata",
+      queueReason: curationReport.nextAction,
+    };
+  }
+
+  if (sourceStatus === "demo") {
+    return {
+      queuePriority: 40,
+      queueLabel: "Demo sourced",
+      queueReason: "Still uses manual demo seed data.",
+    };
+  }
+
+  if (reviewedStatus !== "approved") {
+    return {
+      queuePriority: 60,
+      queueLabel: "Needs review",
+      queueReason: `Current reviewed status: ${reviewedStatus}.`,
+    };
+  }
+
+  return {
+    queuePriority: 100,
+    queueLabel: "Ready",
+    queueReason: "Approved, sourced, and complete.",
+  };
+}
+
 export function buildConceptCurationReport(
   concept: CognateConcept,
 ): ConceptCurationReport {
@@ -773,24 +849,47 @@ export function getFalseFriendsByConceptId(conceptId: string): FalseFriend[] {
 }
 
 export function getAdminConceptSummaries(): AdminConceptSummary[] {
-  return getConcepts().map((concept) => {
-    const wordCount = concept.clusters.reduce(
-      (total, cluster) => total + cluster.words.length,
-      0,
-    );
+  return getConcepts()
+    .map((concept) => {
+      const wordCount = concept.clusters.reduce(
+        (total, cluster) => total + cluster.words.length,
+        0,
+      );
 
-    return {
-      id: concept.id,
-      label: concept.label,
-      definition: concept.definition,
-      partOfSpeech: concept.partOfSpeech,
-      difficulty: concept.difficulty,
-      source: concept.source ?? "Missing",
-      reviewedStatus: concept.reviewedStatus,
-      clusterCount: concept.clusters.length,
-      wordCount,
-      languageCount: concept.languages.length,
-      curationReport: buildConceptCurationReport(concept),
-    };
-  });
+      const source = concept.source ?? "Missing";
+      const sourceStatus = getSourceStatus(concept.source);
+      const curationReport = buildConceptCurationReport(concept);
+      const queueMetadata = getQueueMetadata({
+        sourceStatus,
+        reviewedStatus: concept.reviewedStatus,
+        curationReport,
+      });
+
+      return {
+        id: concept.id,
+        label: concept.label,
+        definition: concept.definition,
+        partOfSpeech: concept.partOfSpeech,
+        difficulty: concept.difficulty,
+        source,
+        sourceStatus,
+        reviewedStatus: concept.reviewedStatus,
+        clusterCount: concept.clusters.length,
+        wordCount,
+        languageCount: concept.languages.length,
+        ...queueMetadata,
+        curationReport,
+      };
+    })
+    .sort((a, b) => {
+      if (a.queuePriority !== b.queuePriority) {
+        return a.queuePriority - b.queuePriority;
+      }
+
+      if (a.curationReport.failedChecks !== b.curationReport.failedChecks) {
+        return b.curationReport.failedChecks - a.curationReport.failedChecks;
+      }
+
+      return a.label.localeCompare(b.label);
+    });
 }
