@@ -15,6 +15,71 @@ const schema = readFileSync(schemaPath, "utf8");
 
 db.exec(schema);
 
+const falseFriends = [
+  {
+    id: "gift-en-de",
+    concept_id: null,
+    word_a_language_code: "en",
+    word_a_form: "gift",
+    word_b_language_code: "de",
+    word_b_form: "Gift",
+    warning: "German Gift means poison, not a present.",
+    severity: "high",
+    source: "manual_demo_seed",
+    reviewed_status: "demo",
+  },
+  {
+    id: "actual-en-fr",
+    concept_id: null,
+    word_a_language_code: "en",
+    word_a_form: "actual",
+    word_b_language_code: "fr",
+    word_b_form: "actuel",
+    warning:
+      "French actuel usually means current or present, not actual in the English sense.",
+    severity: "medium",
+    source: "manual_demo_seed",
+    reviewed_status: "demo",
+  },
+  {
+    id: "library-en-fr",
+    concept_id: null,
+    word_a_language_code: "en",
+    word_a_form: "library",
+    word_b_language_code: "fr",
+    word_b_form: "librairie",
+    warning: "French librairie means bookshop, not library.",
+    severity: "medium",
+    source: "manual_demo_seed",
+    reviewed_status: "demo",
+  },
+  {
+    id: "embarrassed-en-es",
+    concept_id: null,
+    word_a_language_code: "en",
+    word_a_form: "embarrassed",
+    word_b_language_code: "es",
+    word_b_form: "embarazada",
+    warning: "Spanish embarazada means pregnant, not embarrassed.",
+    severity: "high",
+    source: "manual_demo_seed",
+    reviewed_status: "demo",
+  },
+  {
+    id: "camera-en-it",
+    concept_id: null,
+    word_a_language_code: "en",
+    word_a_form: "camera",
+    word_b_language_code: "it",
+    word_b_form: "camera",
+    warning:
+      "Italian camera usually means room or chamber. It does not primarily mean a camera device.",
+    severity: "medium",
+    source: "manual_demo_seed",
+    reviewed_status: "demo",
+  },
+];
+
 const insertConcept = db.prepare(`
   INSERT INTO concepts (
     id,
@@ -88,7 +153,7 @@ const insertCognateSet = db.prepare(`
     @label,
     @ancestor_form,
     @ancestor_language,
-    @language_family,
+    @family,
     @notes,
     @source,
     @reviewed_status
@@ -108,6 +173,32 @@ const insertWordCognateSet = db.prepare(`
     @relationship_type,
     @confidence,
     @source
+  )
+`);
+
+const insertFalseFriend = db.prepare(`
+  INSERT INTO false_friends (
+    id,
+    concept_id,
+    word_a_language_code,
+    word_a_form,
+    word_b_language_code,
+    word_b_form,
+    warning,
+    severity,
+    source,
+    reviewed_status
+  ) VALUES (
+    @id,
+    @concept_id,
+    @word_a_language_code,
+    @word_a_form,
+    @word_b_language_code,
+    @word_b_form,
+    @warning,
+    @severity,
+    @source,
+    @reviewed_status
   )
 `);
 
@@ -203,7 +294,7 @@ const seed = db.transaction(() => {
         label: cluster.title,
         ancestor_form: cluster.ancestor,
         ancestor_language: null,
-        language_family: cluster.family,
+        family: cluster.family,
         notes: null,
         source: "manual_demo_seed",
         reviewed_status: concept.reviewedStatus,
@@ -236,6 +327,10 @@ const seed = db.transaction(() => {
       }
     }
   }
+
+  for (const falseFriend of falseFriends) {
+    insertFalseFriend.run(falseFriend);
+  }
 });
 
 seed();
@@ -254,10 +349,17 @@ const cognateSetCount = db
   count: number;
 };
 
+const falseFriendCount = db
+  .prepare("SELECT COUNT(*) AS count FROM false_friends")
+  .get() as {
+  count: number;
+};
+
 db.close();
 
 console.log("Seeded Cognate database:");
 console.log(`- ${conceptCount.count} concepts`);
 console.log(`- ${wordCount.count} words`);
 console.log(`- ${cognateSetCount.count} cognate sets`);
+console.log(`- ${falseFriendCount.count} false friends`);
 console.log(`Database written to ${dbPath}`);
