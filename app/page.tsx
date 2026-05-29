@@ -18,7 +18,13 @@ export default function Home() {
             <Link href="/concept" className="hover:text-accent">
               Concepts
             </Link>
-            <Link href={`/concept/${dailyConcept.id}`} className="hover:text-accent">
+            <Link href="/bridge" className="hover:text-accent">
+              Bridge
+            </Link>
+            <Link
+              href={`/concept/${dailyConcept.id}`}
+              className="hover:text-accent"
+            >
               Explore
             </Link>
             <Link href="/design-system" className="hover:text-accent">
@@ -50,6 +56,13 @@ export default function Home() {
                 className="inline-flex items-center justify-center border border-accent bg-accent px-5 py-3 font-sans text-15 font-medium text-white transition hover:bg-ink"
               >
                 Explore {dailyConcept.label}
+              </Link>
+
+              <Link
+                href="/bridge"
+                className="inline-flex items-center justify-center border border-rule bg-surface px-5 py-3 font-sans text-15 font-medium text-ink transition hover:border-accent hover:text-accent"
+              >
+                Try Bridge mode
               </Link>
 
               <Link
