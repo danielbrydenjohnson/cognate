@@ -96,6 +96,7 @@ export type ConceptCurationReport = {
   passedChecks: number;
   failedChecks: number;
   isComplete: boolean;
+  nextAction: string;
   items: ConceptCurationChecklistItem[];
 };
 
@@ -423,6 +424,18 @@ function buildConcept(
   };
 }
 
+function getNextCurationAction(
+  items: ConceptCurationChecklistItem[],
+): string {
+  const firstFailedItem = items.find((item) => !item.passed);
+
+  if (!firstFailedItem) {
+    return "Ready for review.";
+  }
+
+  return firstFailedItem.detail;
+}
+
 export function buildConceptCurationReport(
   concept: CognateConcept,
 ): ConceptCurationReport {
@@ -563,6 +576,7 @@ export function buildConceptCurationReport(
     passedChecks,
     failedChecks,
     isComplete: failedChecks === 0,
+    nextAction: getNextCurationAction(items),
     items,
   };
 }
