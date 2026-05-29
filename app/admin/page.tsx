@@ -30,6 +30,9 @@ export default function AdminPage() {
             <Link href="/admin/concepts" className="hover:text-accent">
               Admin concepts
             </Link>
+            <Link href="/admin/false-friends" className="hover:text-accent">
+              False friends
+            </Link>
           </nav>
         </header>
 
@@ -77,24 +80,39 @@ export default function AdminPage() {
             </p>
           </div>
 
-          <div className="bg-surface p-5">
+          <Link
+            href="/admin/false-friends"
+            className="bg-surface p-5 transition hover:bg-bg"
+          >
             <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
               False friends
             </p>
             <p className="mt-3 font-serif text-48 leading-tight text-ink">
               {falseFriends.length}
             </p>
-          </div>
+            <p className="mt-2 font-sans text-13 text-accent">
+              Review warnings
+            </p>
+          </Link>
         </section>
 
         <section className="grid gap-5 py-10 md:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <Link
-              href="/admin/concepts"
-              className="inline-flex border border-accent bg-accent px-5 py-3 font-sans text-15 font-medium text-white transition hover:bg-ink"
-            >
-              Review concepts
-            </Link>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/admin/concepts"
+                className="inline-flex border border-accent bg-accent px-5 py-3 font-sans text-15 font-medium text-white transition hover:bg-ink"
+              >
+                Review concepts
+              </Link>
+
+              <Link
+                href="/admin/false-friends"
+                className="inline-flex border border-rule bg-surface px-5 py-3 font-sans text-15 font-medium text-ink transition hover:border-accent hover:text-accent"
+              >
+                Review false friends
+              </Link>
+            </div>
 
             <p className="mt-5 max-w-[680px] text-15 leading-body text-ink-muted">
               Next step later: editing. Not now. Read-only first keeps this
@@ -113,13 +131,16 @@ export default function AdminPage() {
                 </h2>
               </div>
 
-              <span className="border border-rule px-3 py-1 font-sans text-13 text-ink-muted">
+              <Link
+                href="/admin/false-friends"
+                className="border border-rule px-3 py-1 font-sans text-13 text-ink-muted transition hover:border-accent hover:text-accent"
+              >
                 {falseFriends.length} total
-              </span>
+              </Link>
             </div>
 
             <div className="mt-6 divide-y divide-rule border-y border-rule">
-              {falseFriends.map((falseFriend) => (
+              {falseFriends.slice(0, 3).map((falseFriend) => (
                 <article key={falseFriend.id} className="py-4">
                   <div className="flex flex-wrap items-center gap-2 font-sans text-13">
                     <span className="font-medium uppercase tracking-[0.14em] text-ink-muted">
@@ -147,11 +168,19 @@ export default function AdminPage() {
               ))}
             </div>
 
-            <p className="mt-5 text-13 leading-body text-ink-muted">
-              These warnings are database-backed but not yet linked to public
-              concept pages. That is intentional. We inspect the data before
-              decorating the public UI with it.
-            </p>
+            <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+              <p className="max-w-[520px] text-13 leading-body text-ink-muted">
+                Showing a short preview. Use the dedicated page for proper
+                review instead of bloating this overview.
+              </p>
+
+              <Link
+                href="/admin/false-friends"
+                className="font-sans text-13 font-medium uppercase tracking-[0.14em] text-accent hover:text-ink"
+              >
+                Open review page
+              </Link>
+            </div>
           </div>
         </section>
       </div>
