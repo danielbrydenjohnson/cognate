@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { concepts } from "@/data/concepts";
+import { getConcepts } from "@/lib/concepts";
 
 export default function ConceptIndexPage() {
+  const concepts = getConcepts();
+
   return (
     <main className="min-h-screen px-5 py-6 sm:px-8 lg:px-12">
       <div className="mx-auto max-w-[1120px]">
@@ -13,6 +15,12 @@ export default function ConceptIndexPage() {
           <nav className="hidden items-center gap-6 font-sans text-13 font-medium uppercase tracking-[0.16em] text-ink-muted sm:flex">
             <Link href="/" className="hover:text-accent">
               Home
+            </Link>
+            <Link href="/bridge" className="hover:text-accent">
+              Bridge
+            </Link>
+            <Link href="/false-friends" className="hover:text-accent">
+              False friends
             </Link>
             <Link href="/design-system" className="hover:text-accent">
               Design system
@@ -33,6 +41,22 @@ export default function ConceptIndexPage() {
             Cognate starts with meanings, then shows the language-specific words
             attached to each concept. This is the spine of the app.
           </p>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/bridge"
+              className="inline-flex items-center justify-center border border-accent bg-accent px-5 py-3 font-sans text-15 font-medium text-white transition hover:bg-ink"
+            >
+              Try Bridge mode
+            </Link>
+
+            <Link
+              href="/false-friends"
+              className="inline-flex items-center justify-center border border-rule bg-surface px-5 py-3 font-sans text-15 font-medium text-ink transition hover:border-accent hover:text-accent"
+            >
+              Study false friends
+            </Link>
+          </div>
         </section>
 
         <section className="py-10">
