@@ -83,18 +83,6 @@ export type FalseFriend = {
   reviewedStatus: string;
 };
 
-export type AdminConceptSummary = {
-  id: string;
-  label: string;
-  definition: string;
-  partOfSpeech: string;
-  difficulty: string;
-  reviewedStatus: string;
-  clusterCount: number;
-  wordCount: number;
-  languageCount: number;
-};
-
 export type ConceptCurationChecklistItem = {
   id: string;
   label: string;
@@ -109,6 +97,19 @@ export type ConceptCurationReport = {
   failedChecks: number;
   isComplete: boolean;
   items: ConceptCurationChecklistItem[];
+};
+
+export type AdminConceptSummary = {
+  id: string;
+  label: string;
+  definition: string;
+  partOfSpeech: string;
+  difficulty: string;
+  reviewedStatus: string;
+  clusterCount: number;
+  wordCount: number;
+  languageCount: number;
+  curationReport: ConceptCurationReport;
 };
 
 const databasePath = path.join(process.cwd(), "db", "cognate.sqlite");
@@ -661,6 +662,7 @@ export function getAdminConceptSummaries(): AdminConceptSummary[] {
       clusterCount: concept.clusters.length,
       wordCount,
       languageCount: concept.languages.length,
+      curationReport: buildConceptCurationReport(concept),
     };
   });
 }
