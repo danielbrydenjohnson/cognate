@@ -1,4 +1,4 @@
-import type { CognateConcept } from "@/data/concepts/night";
+import type { CognateConcept } from "@/data/concepts/types";
 
 export function ConceptHero({ concept }: { concept: CognateConcept }) {
   return (

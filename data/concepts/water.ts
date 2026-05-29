@@ -1,4 +1,4 @@
-import type { CognateConcept } from "@/data/concepts/night";
+import type { CognateConcept } from "@/data/concepts/types";
 
 export const waterConcept = {
   id: "water",

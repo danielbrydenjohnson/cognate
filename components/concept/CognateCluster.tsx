@@ -2,7 +2,7 @@ import type {
   CognateClusterData,
   ConceptFamily,
   ConceptWord,
-} from "@/data/concepts/night";
+} from "@/data/concepts/types";
 
 function WordCard({
   word,

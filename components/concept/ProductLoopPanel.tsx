@@ -1,4 +1,4 @@
-import type { ProductMode } from "@/data/concepts/night";
+import type { ProductMode } from "@/data/concepts/types";
 
 export function ProductLoopPanel({ modes }: { modes: ProductMode[] }) {
   return (

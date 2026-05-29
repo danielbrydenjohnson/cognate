@@ -1,7 +1,7 @@
 import type {
   CognateClusterData,
   ConceptFamily,
-} from "@/data/concepts/night";
+} from "@/data/concepts/types";
 
 function getFamilyClasses(family: ConceptFamily) {
   if (family === "Germanic") {

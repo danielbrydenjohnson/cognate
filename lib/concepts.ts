@@ -8,7 +8,7 @@ import type {
   ConceptWord,
   CurationConfidence,
   ProductMode,
-} from "@/data/concepts/night";
+} from "@/data/concepts/types";
 
 type ConceptRow = {
   id: string;

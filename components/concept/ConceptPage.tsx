@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { CognateConcept } from "@/data/concepts/night";
+import type { CognateConcept } from "@/data/concepts/types";
 import { CognateCluster } from "@/components/concept/CognateCluster";
 import { ConceptClusterMap } from "@/components/concept/ConceptClusterMap";
 import { ConceptHero } from "@/components/concept/ConceptHero";
