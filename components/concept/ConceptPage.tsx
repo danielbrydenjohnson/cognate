@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { CognateConcept } from "@/data/concepts/night";
 import { CognateCluster } from "@/components/concept/CognateCluster";
+import { ConceptClusterMap } from "@/components/concept/ConceptClusterMap";
 import { ConceptHero } from "@/components/concept/ConceptHero";
 import { ProductLoopPanel } from "@/components/concept/ProductLoopPanel";
 
@@ -18,6 +19,14 @@ export function ConceptPage({ concept }: { concept: CognateConcept }) {
               Home
             </Link>
 
+            <Link href="/concept" className="hover:text-accent">
+              Concepts
+            </Link>
+
+            <Link href="/bridge" className="hover:text-accent">
+              Bridge
+            </Link>
+
             <Link href="/design-system" className="hover:text-accent">
               Design system
             </Link>
@@ -26,7 +35,25 @@ export function ConceptPage({ concept }: { concept: CognateConcept }) {
 
         <ConceptHero concept={concept} />
 
+        <ConceptClusterMap clusters={concept.clusters} />
+
         <section className="grid gap-6 py-10">
+          <div className="max-w-[720px]">
+            <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
+              Word details
+            </p>
+
+            <h2 className="mt-2 font-serif text-36 leading-tight text-ink">
+              The modern forms
+            </h2>
+
+            <p className="mt-4 text-18 leading-body text-ink-muted">
+              The map gives the relationship at a glance. These cards give the
+              actual word forms, pronunciation, and notes that make the pattern
+              usable.
+            </p>
+          </div>
+
           {concept.clusters.map((cluster) => (
             <CognateCluster key={cluster.id} cluster={cluster} />
           ))}
