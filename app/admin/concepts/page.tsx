@@ -46,7 +46,7 @@ export default function AdminConceptsPage() {
 
         <section className="py-10">
           <div className="overflow-hidden border border-rule">
-            <div className="grid grid-cols-[1.2fr_0.8fr_0.9fr_0.7fr_0.7fr_0.7fr_0.8fr] gap-px bg-rule font-sans text-13 font-medium uppercase tracking-[0.14em] text-ink-muted">
+            <div className="grid grid-cols-[1.2fr_0.8fr_1.4fr_0.7fr_0.7fr_0.7fr_0.8fr] gap-px bg-rule font-sans text-13 font-medium uppercase tracking-[0.14em] text-ink-muted">
               <div className="bg-bg p-3">Concept</div>
               <div className="bg-bg p-3">Status</div>
               <div className="bg-bg p-3">Curation</div>
@@ -60,7 +60,7 @@ export default function AdminConceptsPage() {
               <Link
                 key={concept.id}
                 href={`/admin/concepts/${concept.id}`}
-                className="grid grid-cols-[1.2fr_0.8fr_0.9fr_0.7fr_0.7fr_0.7fr_0.8fr] gap-px bg-rule transition hover:bg-accent"
+                className="grid grid-cols-[1.2fr_0.8fr_1.4fr_0.7fr_0.7fr_0.7fr_0.8fr] gap-px bg-rule transition hover:bg-accent"
               >
                 <div className="bg-surface p-3">
                   <p className="font-serif text-24 leading-tight text-ink">
@@ -94,6 +94,10 @@ export default function AdminConceptsPage() {
                           concept.curationReport.failedChecks === 1 ? "" : "s"
                         }`}
                   </span>
+
+                  <p className="mt-3 text-13 leading-body text-ink-muted">
+                    Next: {concept.curationReport.nextAction}
+                  </p>
                 </div>
 
                 <div className="bg-surface p-3 font-sans text-13 text-ink-muted">
