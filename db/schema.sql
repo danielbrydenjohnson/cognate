@@ -1,5 +1,6 @@
 PRAGMA foreign_keys = ON;
 
+DROP TABLE IF EXISTS false_friends;
 DROP TABLE IF EXISTS concept_modes;
 DROP TABLE IF EXISTS concept_learn_paragraphs;
 DROP TABLE IF EXISTS concept_learn_sections;
@@ -62,6 +63,20 @@ CREATE TABLE word_cognate_sets (
   FOREIGN KEY (cognate_set_id) REFERENCES cognate_sets(id) ON DELETE CASCADE
 );
 
+CREATE TABLE false_friends (
+  id TEXT PRIMARY KEY,
+  concept_id TEXT,
+  word_a_language_code TEXT NOT NULL,
+  word_a_form TEXT NOT NULL,
+  word_b_language_code TEXT NOT NULL,
+  word_b_form TEXT NOT NULL,
+  warning TEXT NOT NULL,
+  severity TEXT NOT NULL,
+  source TEXT NOT NULL DEFAULT 'manual_demo_seed',
+  reviewed_status TEXT NOT NULL DEFAULT 'demo',
+  FOREIGN KEY (concept_id) REFERENCES concepts(id) ON DELETE SET NULL
+);
+
 CREATE TABLE concept_learn_sections (
   concept_id TEXT PRIMARY KEY,
   eyebrow TEXT NOT NULL,
@@ -89,5 +104,8 @@ CREATE TABLE concept_modes (
 CREATE INDEX idx_words_concept_id ON words(concept_id);
 CREATE INDEX idx_words_language_code ON words(language_code);
 CREATE INDEX idx_cognate_sets_concept_id ON cognate_sets(concept_id);
+CREATE INDEX idx_false_friends_concept_id ON false_friends(concept_id);
+CREATE INDEX idx_false_friends_word_a_language_code ON false_friends(word_a_language_code);
+CREATE INDEX idx_false_friends_word_b_language_code ON false_friends(word_b_language_code);
 CREATE INDEX idx_concept_modes_concept_id ON concept_modes(concept_id);
 CREATE INDEX idx_concept_learn_paragraphs_concept_id ON concept_learn_paragraphs(concept_id);
