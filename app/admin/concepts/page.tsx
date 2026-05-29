@@ -1,25 +1,8 @@
 import Link from "next/link";
-import {
-  buildConceptCurationReport,
-  getAdminConceptSummaries,
-  getConceptById,
-} from "@/lib/concepts";
+import { getAdminConceptSummaries } from "@/lib/concepts";
 
 export default function AdminConceptsPage() {
-  const concepts = getAdminConceptSummaries().map((concept) => {
-    const fullConcept = getConceptById(concept.id);
-
-    if (!fullConcept) {
-      throw new Error(`Missing concept for admin summary: ${concept.id}`);
-    }
-
-    const curationReport = buildConceptCurationReport(fullConcept);
-
-    return {
-      ...concept,
-      curationReport,
-    };
-  });
+  const concepts = getAdminConceptSummaries();
 
   return (
     <main className="min-h-screen px-5 py-6 sm:px-8 lg:px-12">
