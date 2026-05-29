@@ -115,6 +115,7 @@ export type AdminConceptSummary = {
   definition: string;
   partOfSpeech: string;
   difficulty: string;
+  source: string;
   reviewedStatus: string;
   clusterCount: number;
   wordCount: number;
@@ -784,6 +785,7 @@ export function getAdminConceptSummaries(): AdminConceptSummary[] {
       definition: concept.definition,
       partOfSpeech: concept.partOfSpeech,
       difficulty: concept.difficulty,
+      source: concept.source ?? "Missing",
       reviewedStatus: concept.reviewedStatus,
       clusterCount: concept.clusters.length,
       wordCount,
