@@ -1,17 +1,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getConceptById, getConcepts } from "@/lib/concepts";
+import {
+  buildConceptCurationReport,
+  getConceptById,
+  getConcepts,
+} from "@/lib/concepts";
 
 type AdminConceptRouteProps = {
   params: Promise<{
     id: string;
   }>;
-};
-
-type CurationChecklistItem = {
-  label: string;
-  passed: boolean;
-  detail: string;
 };
 
 export function generateStaticParams() {
@@ -30,125 +28,12 @@ export default async function AdminConceptDetailPage({
     notFound();
   }
 
+  const curationReport = buildConceptCurationReport(concept);
+
   const wordCount = concept.clusters.reduce(
     (total, cluster) => total + cluster.words.length,
     0,
   );
-
-  const allClustersHaveAncestor = concept.clusters.every((cluster) =>
-    Boolean(cluster.ancestor.trim()),
-  );
-
-  const allClustersHaveConfidence = concept.clusters.every((cluster) =>
-    Boolean(cluster.confidence.trim()),
-  );
-
-  const allClustersHaveWords = concept.clusters.every(
-    (cluster) => cluster.words.length > 0,
-  );
-
-  const allWordsHaveIpa = concept.clusters.every((cluster) =>
-    cluster.words.every((word) => Boolean(word.ipa.trim())),
-  );
-
-  const allWordsHaveNotes = concept.clusters.every((cluster) =>
-    cluster.words.every((word) => Boolean(word.note.trim())),
-  );
-
-  const curationChecklist: CurationChecklistItem[] = [
-    {
-      label: "Concept has definition",
-      passed: Boolean(concept.definition.trim()),
-      detail: concept.definition.trim()
-        ? "Definition is present."
-        : "Missing definition. This concept is not ready for review.",
-    },
-    {
-      label: "Concept has source note",
-      passed: Boolean(concept.sourceNote.trim()),
-      detail: concept.sourceNote.trim()
-        ? "Source note is present."
-        : "Missing source note. Etymology claims need traceability.",
-    },
-    {
-      label: "Concept has summary",
-      passed: Boolean(concept.summary.trim()),
-      detail: concept.summary.trim()
-        ? "Summary is present."
-        : "Missing summary. Public pages need a short concept overview.",
-    },
-    {
-      label: "Concept has learn paragraphs",
-      passed:
-        Boolean(concept.learn.title.trim()) &&
-        concept.learn.paragraphs.length > 0 &&
-        concept.learn.paragraphs.every((paragraph) =>
-          Boolean(paragraph.trim()),
-        ),
-      detail:
-        concept.learn.paragraphs.length > 0
-          ? `${concept.learn.paragraphs.length} learn paragraph${
-              concept.learn.paragraphs.length === 1 ? "" : "s"
-            } present.`
-          : "Missing learn content. This weakens the actual learning loop.",
-    },
-    {
-      label: "At least one cognate cluster exists",
-      passed: concept.clusters.length > 0,
-      detail:
-        concept.clusters.length > 0
-          ? `${concept.clusters.length} cluster${
-              concept.clusters.length === 1 ? "" : "s"
-            } present.`
-          : "No clusters found. This concept has no etymology product value yet.",
-    },
-    {
-      label: "All clusters have ancestor forms",
-      passed: concept.clusters.length > 0 && allClustersHaveAncestor,
-      detail: allClustersHaveAncestor
-        ? "Every cluster has an ancestor form."
-        : "One or more clusters are missing an ancestor form.",
-    },
-    {
-      label: "All clusters have confidence labels",
-      passed: concept.clusters.length > 0 && allClustersHaveConfidence,
-      detail: allClustersHaveConfidence
-        ? "Every cluster has a confidence label."
-        : "One or more clusters are missing confidence labels.",
-    },
-    {
-      label: "All clusters contain words",
-      passed: concept.clusters.length > 0 && allClustersHaveWords,
-      detail: allClustersHaveWords
-        ? "Every cluster contains at least one word."
-        : "One or more clusters are empty.",
-    },
-    {
-      label: "All words have IPA",
-      passed: wordCount > 0 && allWordsHaveIpa,
-      detail: allWordsHaveIpa
-        ? "Every word has IPA."
-        : "One or more words are missing IPA.",
-    },
-    {
-      label: "All words have notes",
-      passed: wordCount > 0 && allWordsHaveNotes,
-      detail: allWordsHaveNotes
-        ? "Every word has a note."
-        : "One or more words are missing notes.",
-    },
-    {
-      label: "Concept has reviewed status",
-      passed: Boolean(concept.reviewedStatus.trim()),
-      detail: concept.reviewedStatus.trim()
-        ? `Current status: ${concept.reviewedStatus}.`
-        : "Missing reviewed status.",
-    },
-  ];
-
-  const passedChecklistCount = curationChecklist.filter(
-    (item) => item.passed,
-  ).length;
 
   return (
     <main className="min-h-screen px-5 py-6 sm:px-8 lg:px-12">
@@ -227,8 +112,8 @@ export default async function AdminConceptDetailPage({
               </p>
 
               <h2 className="mt-2 font-serif text-36 leading-tight text-ink">
-                {passedChecklistCount} of {curationChecklist.length} checks
-                passed
+                {curationReport.passedChecks} of {curationReport.totalChecks}{" "}
+                checks passed
               </h2>
             </div>
 
@@ -240,8 +125,8 @@ export default async function AdminConceptDetailPage({
           </div>
 
           <div className="mt-6 grid gap-px border border-rule bg-rule md:grid-cols-2">
-            {curationChecklist.map((item) => (
-              <div key={item.label} className="bg-surface p-5">
+            {curationReport.items.map((item) => (
+              <div key={item.id} className="bg-surface p-5">
                 <div className="flex items-start justify-between gap-4">
                   <h3 className="font-serif text-22 leading-tight text-ink">
                     {item.label}
