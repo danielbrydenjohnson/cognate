@@ -27,6 +27,10 @@ export function ConceptPage({ concept }: { concept: CognateConcept }) {
               Bridge
             </Link>
 
+            <Link href="/false-friends" className="hover:text-accent">
+              False friends
+            </Link>
+
             <Link href="/design-system" className="hover:text-accent">
               Design system
             </Link>
@@ -60,6 +64,34 @@ export function ConceptPage({ concept }: { concept: CognateConcept }) {
         </section>
 
         <section className="grid gap-8 border-y border-rule py-12 lg:grid-cols-[360px_1fr]">
+          <div>
+            <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
+              False friends
+            </p>
+
+            <h2 className="mt-2 font-serif text-36 leading-tight text-ink">
+              Similar does not always mean related.
+            </h2>
+          </div>
+
+          <div className="max-w-[720px]">
+            <p className="text-18 leading-body text-ink-muted">
+              Cognates are useful because they reveal real shared history. But
+              some words only look familiar while meaning something different.
+              Those are false friends, and they are exactly where pattern
+              recognition can betray you.
+            </p>
+
+            <Link
+              href="/false-friends"
+              className="mt-5 inline-block font-sans text-13 font-medium uppercase tracking-[0.16em] text-accent hover:text-ink"
+            >
+              Study false friends
+            </Link>
+          </div>
+        </section>
+
+        <section className="grid gap-8 border-b border-rule py-12 lg:grid-cols-[360px_1fr]">
           <div>
             <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
               {concept.learn.eyebrow}
