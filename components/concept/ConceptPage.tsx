@@ -66,6 +66,24 @@ export function ConceptPage({ concept }: { concept: CognateConcept }) {
         <section className="grid gap-8 border-y border-rule py-12 lg:grid-cols-[360px_1fr]">
           <div>
             <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
+              {concept.learn.eyebrow}
+            </p>
+
+            <h2 className="mt-2 font-serif text-36 leading-tight text-ink">
+              {concept.learn.title}
+            </h2>
+          </div>
+
+          <div className="max-w-[720px] space-y-5 text-18 leading-body text-ink-muted">
+            {concept.learn.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </section>
+
+        <section className="grid gap-8 border-b border-rule py-12 lg:grid-cols-[360px_1fr]">
+          <div>
+            <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
               False friends
             </p>
 
@@ -88,24 +106,6 @@ export function ConceptPage({ concept }: { concept: CognateConcept }) {
             >
               Study false friends
             </Link>
-          </div>
-        </section>
-
-        <section className="grid gap-8 border-b border-rule py-12 lg:grid-cols-[360px_1fr]">
-          <div>
-            <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
-              {concept.learn.eyebrow}
-            </p>
-
-            <h2 className="mt-2 font-serif text-36 leading-tight text-ink">
-              {concept.learn.title}
-            </h2>
-          </div>
-
-          <div className="max-w-[720px] space-y-5 text-18 leading-body text-ink-muted">
-            {concept.learn.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
           </div>
         </section>
 
