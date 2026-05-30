@@ -2,7 +2,7 @@ import Database from "better-sqlite3";
 import { mkdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
-import { concepts } from "@/data/concepts";
+import { curatedConcepts } from "@/data/curation/concepts";
 import { falseFriends } from "@/data/curation/false-friends";
 
 const dbDir = path.join(process.cwd(), "db");
@@ -181,7 +181,7 @@ const insertConceptMode = db.prepare(`
 `);
 
 const seed = db.transaction(() => {
-  for (const concept of concepts) {
+  for (const concept of curatedConcepts) {
     insertConcept.run({
       id: concept.id,
       concepticon_id: null,
