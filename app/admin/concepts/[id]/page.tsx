@@ -1,10 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  buildConceptCurationReport,
-  getConceptById,
-  getConcepts,
-} from "@/lib/concepts";
 
 type AdminConceptRouteProps = {
   params: Promise<{
@@ -12,7 +7,15 @@ type AdminConceptRouteProps = {
   }>;
 };
 
-export function generateStaticParams() {
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  if (process.env.VERCEL === "1") {
+    return [];
+  }
+
+  const { getConcepts } = await import("@/lib/concepts");
+
   return getConcepts().map((concept) => ({
     id: concept.id,
   }));
@@ -66,6 +69,14 @@ function StatusBadge({
 export default async function AdminConceptDetailPage({
   params,
 }: AdminConceptRouteProps) {
+  if (process.env.VERCEL === "1") {
+    notFound();
+  }
+
+  const { buildConceptCurationReport, getConceptById } = await import(
+    "@/lib/concepts"
+  );
+
   const { id } = await params;
   const concept = getConceptById(id);
 

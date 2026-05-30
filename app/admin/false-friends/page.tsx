@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getFalseFriends } from "@/lib/concepts";
+import { notFound } from "next/navigation";
 
 function getSeverityLabelClass(severity: string) {
   if (severity === "high") {
@@ -13,7 +13,13 @@ function getSeverityLabelClass(severity: string) {
   return "border-rule text-ink-muted";
 }
 
-export default function AdminFalseFriendsPage() {
+export default async function AdminFalseFriendsPage() {
+  if (process.env.VERCEL === "1") {
+    notFound();
+  }
+
+  const { getFalseFriends } = await import("@/lib/concepts");
+
   const falseFriends = getFalseFriends();
 
   const highSeverityCount = falseFriends.filter(
@@ -28,7 +34,10 @@ export default function AdminFalseFriendsPage() {
     <main className="min-h-screen px-5 py-6 sm:px-8 lg:px-12">
       <div className="mx-auto max-w-[1120px]">
         <header className="flex items-center justify-between border-b border-rule pb-5">
-          <Link href="/admin" className="font-serif text-28 leading-tight text-ink">
+          <Link
+            href="/admin"
+            className="font-serif text-28 leading-tight text-ink"
+          >
             Cognate Admin
           </Link>
 

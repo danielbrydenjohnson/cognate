@@ -1,7 +1,15 @@
 import Link from "next/link";
-import { getAdminConceptSummaries, getFalseFriends } from "@/lib/concepts";
+import { notFound } from "next/navigation";
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  if (process.env.VERCEL === "1") {
+    notFound();
+  }
+
+  const { getAdminConceptSummaries, getFalseFriends } = await import(
+    "@/lib/concepts"
+  );
+
   const concepts = getAdminConceptSummaries();
   const falseFriends = getFalseFriends();
 

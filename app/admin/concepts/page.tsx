@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAdminConceptSummaries } from "@/lib/concepts";
+import { notFound } from "next/navigation";
 
 function SourceBadge({ source }: { source: string }) {
   const isDemoSource = source === "manual_demo_seed";
@@ -49,7 +49,13 @@ function QueueBadge({
   );
 }
 
-export default function AdminConceptsPage() {
+export default async function AdminConceptsPage() {
+  if (process.env.VERCEL === "1") {
+    notFound();
+  }
+
+  const { getAdminConceptSummaries } = await import("@/lib/concepts");
+
   const concepts = getAdminConceptSummaries();
 
   return (

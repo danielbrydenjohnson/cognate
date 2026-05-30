@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { ConceptPage } from "@/components/concept/ConceptPage";
-import { conceptById, concepts } from "@/data/concepts";
+import { getConceptById, getConcepts } from "@/lib/concepts";
 
 type ConceptRouteProps = {
   params: Promise<{
@@ -8,15 +8,17 @@ type ConceptRouteProps = {
   }>;
 };
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
-  return concepts.map((concept) => ({
+  return getConcepts().map((concept) => ({
     id: concept.id,
   }));
 }
 
 export default async function ConceptRoute({ params }: ConceptRouteProps) {
   const { id } = await params;
-  const concept = conceptById[id];
+  const concept = getConceptById(id);
 
   if (!concept) {
     notFound();

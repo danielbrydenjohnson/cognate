@@ -43,9 +43,6 @@ export default function FalseFriendsPage() {
             <Link href="/bridge" className="hover:text-accent">
               Bridge
             </Link>
-            <Link href="/admin" className="hover:text-accent">
-              Admin
-            </Link>
           </nav>
         </header>
 
