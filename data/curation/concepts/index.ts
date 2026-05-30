@@ -8,6 +8,9 @@ import { fireConcept } from "@/data/curation/concepts/fire";
 import { nameConcept } from "@/data/curation/concepts/name";
 import { heartConcept } from "@/data/curation/concepts/heart";
 import { handConcept } from "@/data/curation/concepts/hand";
+import { fatherConcept } from "@/data/curation/concepts/father";
+import { newConcept } from "@/data/curation/concepts/new";
+import { twoConcept } from "@/data/curation/concepts/two";
 import type { CognateConcept } from "@/data/concepts/types";
 
 export const curatedConcepts = [
@@ -21,4 +24,7 @@ export const curatedConcepts = [
   nameConcept,
   heartConcept,
   handConcept,
+  fatherConcept,
+  newConcept,
+  twoConcept,
 ] satisfies CognateConcept[];
