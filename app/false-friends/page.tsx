@@ -91,10 +91,10 @@ export default function FalseFriendsPage() {
 
           <div className="bg-surface p-5">
             <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
-              Data status
+              Learning focus
             </p>
             <p className="mt-5 font-sans text-15 leading-body text-ink-muted">
-              Demo reviewed later
+              Meaning traps across familiar-looking words
             </p>
           </div>
         </section>
@@ -142,10 +142,6 @@ export default function FalseFriendsPage() {
 
                 <p className="mt-5 max-w-[760px] text-18 leading-body text-ink-muted">
                   {falseFriend.warning}
-                </p>
-
-                <p className="mt-5 font-sans text-12 uppercase tracking-[0.14em] text-ink-muted">
-                  {falseFriend.reviewedStatus} · {falseFriend.source}
                 </p>
               </article>
             ))}
