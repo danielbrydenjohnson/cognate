@@ -101,9 +101,9 @@ export const motherConcept = {
     eyebrow: "Learn",
     title: "A basic human concept with messy real-world edges.",
     paragraphs: [
-      "MOTHER is useful because it feels simple, but the forms are not perfectly neat. English mother, German Mutter, Dutch moeder, and Swedish moder clearly belong together, but everyday usage can drift. Swedish speakers usually say mamma, even though moder preserves the formal inherited comparison.",
-      "The Romance side is also not a perfect classroom poster. Spanish madre and Italian madre are beautifully obvious. French mère is shorter and more eroded. Romanian commonly uses mamă, which is exactly the kind of thing Cognate needs to handle honestly rather than forcing every language into a fake symmetrical pattern.",
-      "That makes MOTHER a better test than NIGHT. NIGHT was clean. MOTHER exposes the real product challenge: cognate learning only works if the app can show patterns without pretending language history is tidier than it is.",
+      "English mother, German Mutter, Dutch moeder, and Swedish moder clearly belong together, but everyday usage can drift. Swedish speakers usually say mamma, while moder preserves the more formal inherited comparison.",
+      "The Romance side is also not a perfect classroom poster. Spanish madre and Italian madre are beautifully obvious. French mère is shorter and more eroded. Romanian commonly uses mamă, which follows the familiar nursery-word pattern rather than a tidy Latin textbook route.",
+      "MOTHER looks simple at first, but it exposes a real historical messiness. Family words are old, intimate, and prone to everyday replacements. Apparently even vocabulary has family drama.",
     ],
   },
   modes: [

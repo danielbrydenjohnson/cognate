@@ -103,9 +103,9 @@ export const nameConcept = {
     eyebrow: "Learn",
     title: "The old word for what a word is called.",
     paragraphs: [
-      "NAME is one of the cleanest deep-cognate concepts in the sprint. English name, German Name, Dutch naam, and Swedish namn all sit together as Germanic relatives. The family resemblance is obvious enough that learners can feel the pattern before they analyse it.",
-      "The Romance side comes from Latin nōmen: French nom, Spanish nombre, Italian nome, and Romanian nume. Spanish nombre looks busier, French nom looks reduced, but the old n-m skeleton is still doing the work.",
-      "The useful lesson is that Germanic and Romance do not always form unrelated islands. Both branches preserve descendants of a very old Indo-European word for name. This is the kind of concept where Cognate can show modern clusters separately while still pointing to a deeper shared root underneath.",
+      "English name, German Name, Dutch naam, and Swedish namn sit together as Germanic relatives. The family resemblance is obvious enough that the pattern can be felt before it needs to be analysed.",
+      "The Romance side comes from Latin nōmen: French nom, Spanish nombre, Italian nome, and Romanian nume. Spanish nombre looks busier and French nom looks reduced, but the old n-m skeleton is still doing the work.",
+      "Germanic and Romance do not always form unrelated islands. Both branches preserve descendants of a very old Indo-European word for name. The modern clusters are separate, but the deeper root reaches further back.",
     ],
   },
   modes: [

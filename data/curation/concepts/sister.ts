@@ -110,11 +110,11 @@ export const sisterConcept = {
   ],
   learn: {
     eyebrow: "Learn",
-    title: "The sister page explains the brother page again.",
+    title: "Sister, soror, and the Spanish echo.",
     paragraphs: [
-      "SISTER is valuable because it pairs with BROTHER and reinforces the same structural lesson. English sister, German Schwester, Dutch zus, and Swedish syster all belong to the Germanic sister family, even though Dutch uses a shortened everyday form.",
-      "French sœur, Italian sorella, and Romanian soră come through Latin soror. French compresses the form heavily. Italian expands it with a diminutive. Romanian keeps it beautifully direct.",
-      "Spanish hermana mirrors Spanish hermano. It comes from Latin germāna, not from the soror line. That repeated outlier pattern is useful because learners remember stories better than tidy tables, and Spanish has decided to be narratively inconvenient. Very inconsiderate, but good for the product.",
+      "English sister, German Schwester, Dutch zus, and Swedish syster all belong to the Germanic sister family. The relationship is clearest in English and Swedish, while German shows a heavier consonant shape and Dutch uses a shorter everyday form.",
+      "French sœur, Italian sorella, and Romanian soră come through Latin soror. French compresses the form heavily, Italian expands it with a diminutive ending, and Romanian keeps the connection unusually direct.",
+      "Spanish hermana follows the same detour as hermano for BROTHER. It comes from Latin germāna rather than the soror line. It still belongs to the SISTER concept, but it is not from the same immediate ancestral sibling term as sœur, sorella, and soră.",
     ],
   },
   modes: [

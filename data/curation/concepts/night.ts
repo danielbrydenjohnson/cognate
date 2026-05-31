@@ -101,9 +101,9 @@ export const nightConcept = {
     eyebrow: "Learn",
     title: "One concept, two visible histories.",
     paragraphs: [
-      "The Germanic words are easy to spot once you see them together: night, Nacht, nacht, and natt all preserve a similar shape. That is the addictive bit. Your brain stops treating vocabulary as isolated debris and starts seeing reusable patterns.",
-      "The Romance words look more varied, but they also share a common Latin source. Spanish noche, Italian notte, French nuit, and Romanian noapte show how sound change can stretch one ancestor in several directions while keeping the historical relationship.",
-      "This is exactly why Cognate is concept-first. If you began with a single word, the page would become dictionary sludge. Starting with NIGHT keeps the comparison clean.",
+      "The Germanic words are easy to spot once they are placed together: English night, German Nacht, Dutch nacht, and Swedish natt all preserve a similar shape. The pattern is visible almost immediately.",
+      "The Romance words look more varied, but they also share a common Latin source. Spanish noche, Italian notte, French nuit, and Romanian noapte show how sound change can stretch one ancestor in several directions while keeping the historical relationship intact.",
+      "NIGHT is a clean example of why concepts matter. The meaning stays fixed, while the word histories separate into visible clusters. Start with the concept and the comparison stays sharp.",
     ],
   },
   modes: [

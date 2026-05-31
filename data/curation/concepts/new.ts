@@ -103,9 +103,9 @@ export const newConcept = {
     eyebrow: "Learn",
     title: "An adjective without the grammar swamp.",
     paragraphs: [
-      "NEW is useful because it lets Cognate handle an adjective without becoming a grammar textbook. We show the citation form only: new, neu, nieuw, ny, nouveau, nuevo, nuovo, and nou. Inflection can be mentioned later when it teaches something specific.",
+      "NEW is handled through citation forms only: English new, German neu, Dutch nieuw, Swedish ny, French nouveau, Spanish nuevo, Italian nuovo, and Romanian nou. The inflected forms can wait. Nobody needs the grammar swamp before breakfast.",
       "The Germanic forms are easy to compare: English new, German neu, Dutch nieuw, and Swedish ny. They are short, close, and clearly inherited.",
-      "The Romance forms come through Latin novus. Spanish nuevo and Italian nuovo make the connection obvious. French nouveau and Romanian nou show how the same root can stretch or compress across time. The deeper lesson is that Germanic and Romance are separate modern clusters, but both point back to a much older Indo-European new root.",
+      "The Romance forms come through Latin novus. Spanish nuevo and Italian nuovo make the connection obvious. French nouveau and Romanian nou show how the same root can stretch or compress across time. Germanic and Romance sit in separate modern clusters, but both point back to a much older Indo-European root.",
     ],
   },
   modes: [
