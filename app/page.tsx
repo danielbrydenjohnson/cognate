@@ -29,9 +29,6 @@ export default function Home() {
             >
               Explore
             </Link>
-            <Link href="/design-system" className="hover:text-accent">
-              Design system
-            </Link>
           </nav>
         </header>
 

@@ -220,9 +220,6 @@ export function BridgeClient({ concepts }: BridgeClientProps) {
             <Link href="/false-friends" className="hover:text-accent">
               False friends
             </Link>
-            <Link href="/design-system" className="hover:text-accent">
-              Design system
-            </Link>
           </nav>
         </header>
 
