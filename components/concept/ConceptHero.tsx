@@ -39,7 +39,7 @@ export function ConceptHero({ concept }: { concept: CognateConcept }) {
 
         <p className="mt-3 text-15 leading-body text-ink-muted">
           The word groups are separated because they descend through different
-          historical paths. {concept.sourceNote}
+          historical paths. Each cluster has been reviewed for source accuracy.
         </p>
 
         <div className="mt-5 grid gap-2 font-sans text-13">
