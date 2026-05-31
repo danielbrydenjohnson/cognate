@@ -1,9 +1,9 @@
 import Link from "next/link";
+import { ConceptSearchGrid } from "@/components/concept/ConceptSearchGrid";
 import { getConcepts } from "@/lib/concepts";
 
 export default function ConceptIndexPage() {
   const concepts = getConcepts();
-  const largeScreenPlaceholderCount = (3 - (concepts.length % 3)) % 3;
 
   return (
     <main className="min-h-screen px-5 py-6 sm:px-8 lg:px-12">
@@ -57,74 +57,7 @@ export default function ConceptIndexPage() {
           </div>
         </section>
 
-        <section className="py-10">
-          <div className="grid gap-px border border-rule bg-rule md:grid-cols-2 lg:grid-cols-3">
-            {concepts.map((concept) => (
-              <Link
-                key={concept.id}
-                href={`/concept/${concept.id}`}
-                className="bg-surface p-5 transition hover:bg-bg"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-accent">
-                      {concept.partOfSpeech}
-                    </p>
-
-                    <h2 className="mt-3 font-serif text-36 leading-tight text-ink">
-                      {concept.label}
-                    </h2>
-                  </div>
-
-                  <span className="border border-rule bg-bg px-2 py-1 font-sans text-[0.7rem] uppercase tracking-[0.14em] text-ink-muted">
-                    {concept.difficulty}
-                  </span>
-                </div>
-
-                <p className="mt-4 text-15 leading-body text-ink-muted">
-                  {concept.definition}
-                </p>
-
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {concept.clusters.map((cluster) => (
-                    <span
-                      key={cluster.id}
-                      className="border border-rule bg-bg px-2 py-1 font-sans text-[0.7rem] uppercase tracking-[0.14em] text-ink-muted"
-                    >
-                      {cluster.family}
-                    </span>
-                  ))}
-                </div>
-              </Link>
-            ))}
-
-            {Array.from({ length: largeScreenPlaceholderCount }).map(
-              (_, index) => (
-                <div
-                  key={`concept-placeholder-${index}`}
-                  className="hidden bg-surface p-5 lg:block"
-                >
-                  <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
-                    More concepts coming
-                  </p>
-
-                  <h2 className="mt-3 font-serif text-36 leading-tight text-ink">
-                    The map is still growing.
-                  </h2>
-
-                  <p className="mt-4 text-15 leading-body text-ink-muted">
-                    New curated concepts will be added as the dataset expands,
-                    with the same reviewed cognate clusters and learning notes.
-                  </p>
-
-                  <p className="mt-5 font-sans text-[0.7rem] uppercase tracking-[0.14em] text-ink-muted">
-                    Next curation sprint
-                  </p>
-                </div>
-              ),
-            )}
-          </div>
-        </section>
+        <ConceptSearchGrid concepts={concepts} />
       </div>
     </main>
   );
