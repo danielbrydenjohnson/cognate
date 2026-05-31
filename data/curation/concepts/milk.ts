@@ -103,9 +103,9 @@ export const milkConcept = {
     eyebrow: "Learn",
     title: "Milk, lactose, and the root you already know.",
     paragraphs: [
-      "MILK gives a clean contrast. English milk, German Milch, Dutch melk, and Swedish mjölk form the Germanic cluster. The forms are close, but Swedish and German add just enough sound change to make the comparison worth showing.",
-      "The Romance side comes from Latin lac and lactis: French lait, Spanish leche, Italian latte, and Romanian lapte. Italian latte and Romanian lapte are especially useful anchors because they keep more of the old shape visible.",
-      "The learner hook is that English already borrowed this root in scientific words like lactose and lactate. Cognate can use that moment well: even when the everyday English word is Germanic, the Romance root may already be hiding in technical vocabulary the user recognises.",
+      "English milk, German Milch, Dutch melk, and Swedish mjölk form the Germanic cluster. The forms are close, but Swedish and German add enough sound change to make the comparison interesting.",
+      "The Romance side comes from Latin lac and lactis: French lait, Spanish leche, Italian latte, and Romanian lapte. Italian latte and Romanian lapte keep more of the older shape visible.",
+      "English also borrowed this Latin root into scientific vocabulary: lactose, lactate, and related words. So the everyday English word is Germanic, while the Latin root survives in more technical clothing. Very respectable. Slightly lab coated.",
     ],
   },
   modes: [

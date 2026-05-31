@@ -103,9 +103,9 @@ export const handConcept = {
     eyebrow: "Learn",
     title: "A clean split you can actually trust.",
     paragraphs: [
-      "HAND gives a much cleaner contrast than FIRE. English hand, German Hand, Dutch hand, and Swedish hand are all Germanic and barely make the learner work. Sometimes the obvious pattern is actually true. A rare mercy from historical linguistics, which usually prefers psychological warfare.",
+      "English hand, German Hand, Dutch hand, and Swedish hand are all Germanic and barely make the reader work. Sometimes the obvious pattern is actually true. A rare mercy from historical linguistics.",
       "The Romance side comes from Latin manus. Spanish mano and Italian mano are transparent. French main is more reduced, and Romanian mână shows its own eastern Romance development.",
-      "This concept is useful because it teaches a basic product rule: same concept, two different inherited families. The Germanic words belong together, the Romance words belong together, and the concept page lets users compare both without pretending the roots are the same.",
+      "HAND gives a clean split: one concept, two inherited families. The Germanic words belong together, the Romance words belong together, and the similarity between the two groups should not be forced.",
     ],
   },
   modes: [

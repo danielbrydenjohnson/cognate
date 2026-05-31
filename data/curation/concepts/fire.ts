@@ -112,9 +112,9 @@ export const fireConcept = {
     eyebrow: "Learn",
     title: "The dangerous lookalike.",
     paragraphs: [
-      "FIRE is a trap, which makes it valuable. English fire, German Feuer, Dutch vuur, French feu, Spanish fuego, Italian fuoco, and Romanian foc all look like they might belong together. They do not. This is where a normal learner gets betrayed by vibes.",
-      "English fire, German Feuer, and Dutch vuur form a West Germanic cluster. Swedish eld is also Germanic, but it comes from a different inherited fire word. That gives Cognate a chance to show that language families are not always tidy little boxes where every language chooses the same inherited form.",
-      "The Romance forms come from Latin focus, originally hearth or fireplace. French feu, Spanish fuego, Italian fuoco, and Romanian foc are therefore true relatives of each other, but not close relatives of German Feuer. The page teaches an important false-friend-adjacent lesson: visual similarity is evidence, not proof.",
+      "English fire, German Feuer, Dutch vuur, French feu, Spanish fuego, Italian fuoco, and Romanian foc look as if they might all belong together. They do not. This is where surface similarity starts handing out forged documents.",
+      "English fire, German Feuer, and Dutch vuur form a West Germanic cluster. Swedish eld is also Germanic, but it comes from a different inherited fire word. Even inside one language family, not every language chooses the same inherited form.",
+      "The Romance forms come from Latin focus, originally hearth or fireplace. French feu, Spanish fuego, Italian fuoco, and Romanian foc are true relatives of each other, but not close relatives of German Feuer. Visual similarity is evidence, not proof.",
     ],
   },
   modes: [

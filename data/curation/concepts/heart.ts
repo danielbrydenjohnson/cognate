@@ -112,9 +112,9 @@ export const heartConcept = {
     eyebrow: "Learn",
     title: "The heart is not always from the heart root.",
     paragraphs: [
-      "HEART starts cleanly on the Germanic side. English heart, German Herz, Dutch hart, and Swedish hjärta all descend from the same old Germanic heart word. This is a satisfying pattern because the forms are different enough to teach sound change but similar enough to remain visible.",
+      "English heart, German Herz, Dutch hart, and Swedish hjärta all descend from the same old Germanic heart word. The forms are different enough to show sound change, but similar enough for the relationship to remain visible.",
       "Much of the Romance side points back to Latin cor. French cœur, Spanish corazón, and Italian cuore belong together, even though Spanish has grown into a much fuller-looking form.",
-      "Romanian is the useful complication. The common word inimă means heart, but it comes from Latin anima, meaning soul. That is exactly why Cognate is concept-first. The page can show that Romanian belongs to the HEART concept without pretending it is part of the same immediate cognate cluster as the cor forms.",
+      "Romanian is the complication. The common word inimă means heart, but it comes from Latin anima, meaning soul. It belongs to the HEART concept, but not to the same immediate cognate cluster as the cor forms.",
     ],
   },
   modes: [

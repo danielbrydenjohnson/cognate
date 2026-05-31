@@ -103,9 +103,9 @@ export const moonConcept = {
     eyebrow: "Learn",
     title: "Moon, month, and borrowed light.",
     paragraphs: [
-      "MOON is a neat split. English moon, German Mond, Dutch maan, and Swedish måne all belong to the Germanic side. The forms are not identical, but the family resemblance is strong enough to teach the user what inherited sound change looks like without needing a lecture.",
-      "The Romance forms tell a different story. French lune, Spanish luna, Italian luna, and Romanian lună come from Latin lūna. Spanish and Italian are almost too easy. French and Romanian are better reminders that even close relatives can drift just enough to stop looking obvious at first glance.",
-      "The deeper hook is semantic. The Germanic moon word is historically connected with the idea of the month, because lunar phases were a natural way to measure time. The Romance word points instead toward brightness. Same object in the sky, different inherited story. That is exactly the kind of contrast Cognate should make visible.",
+      "English moon, German Mond, Dutch maan, and Swedish måne all belong to the Germanic side. The forms are not identical, but the family resemblance is strong.",
+      "The Romance forms tell a different story. French lune, Spanish luna, Italian luna, and Romanian lună come from Latin lūna. Spanish and Italian are especially transparent, while French and Romanian drift just enough to make the pattern less immediate.",
+      "The Germanic moon word is historically connected with the idea of the month, because lunar phases were a natural way to measure time. The Romance word points instead toward brightness. Same object in the sky, different inherited story.",
     ],
   },
   modes: [
