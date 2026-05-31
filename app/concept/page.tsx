@@ -14,14 +14,20 @@ export default function ConceptIndexPage() {
           </Link>
 
           <nav className="hidden items-center gap-6 font-sans text-13 font-medium uppercase tracking-[0.16em] text-ink-muted sm:flex">
-            <Link href="/" className="hover:text-accent">
+            <Link href="/" className="pb-1 hover:text-accent">
               Home
             </Link>
-            <Link href="/bridge" className="hover:text-accent">
+            <Link
+              href="/concept"
+              className="border-b border-accent pb-1 text-accent"
+            >
+              Concepts
+            </Link>
+            <Link href="/bridge" className="pb-1 hover:text-accent">
               Bridge
             </Link>
-            <Link href="/false-friends" className="hover:text-accent">
-              False friends
+            <Link href="/false-friends" className="pb-1 hover:text-accent">
+              False Friends
             </Link>
           </nav>
         </header>

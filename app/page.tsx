@@ -14,20 +14,20 @@ export default function Home() {
           </Link>
 
           <nav className="hidden items-center gap-6 font-sans text-13 font-medium uppercase tracking-[0.16em] text-ink-muted sm:flex">
-            <Link href="/concept" className="hover:text-accent">
+            <Link
+              href="/"
+              className="border-b border-accent pb-1 text-accent"
+            >
+              Home
+            </Link>
+            <Link href="/concept" className="pb-1 hover:text-accent">
               Concepts
             </Link>
-            <Link href="/bridge" className="hover:text-accent">
+            <Link href="/bridge" className="pb-1 hover:text-accent">
               Bridge
             </Link>
-            <Link href="/false-friends" className="hover:text-accent">
-              False friends
-            </Link>
-            <Link
-              href={`/concept/${dailyConcept.id}`}
-              className="hover:text-accent"
-            >
-              Explore
+            <Link href="/false-friends" className="pb-1 hover:text-accent">
+              False Friends
             </Link>
           </nav>
         </header>
