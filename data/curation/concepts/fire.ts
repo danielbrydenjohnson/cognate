@@ -66,7 +66,7 @@ export const fireConcept = {
           languageCode: "sv",
           form: "eld",
           ipa: "/ɛld/",
-          note: "Swedish eld is Germanic, but it is not part of the same immediate fire/Feuer/vuur cluster. This is useful because one language can use a different inherited word for the same concept.",
+          note: "Swedish eld is Germanic, but it is not part of the same immediate fire/Feuer/vuur cluster. One language can use a different inherited word for the same concept.",
         },
       ],
     },
