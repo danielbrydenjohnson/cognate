@@ -103,9 +103,9 @@ export const bloodConcept = {
     eyebrow: "Learn",
     title: "Same blood, different roots.",
     paragraphs: [
-      "BLOOD is valuable because it does not force a deep shared-root story where there is not one. English blood, German Blut, Dutch bloed, and Swedish blod form a clean Germanic cluster.",
-      "The Romance forms come from Latin sanguis: French sang, Spanish sangre, Italian sangue, and Romanian sânge. English speakers already know this family indirectly through words like sanguine and consanguinity, even if nobody says consanguinity unless they are a lawyer, a genealogist, or trapped in a gothic novel.",
-      "The lesson is simple but important: not every basic concept has one visible inherited root across Germanic and Romance. Sometimes Cognate should show two separate families and let the contrast do the teaching.",
+      "English blood, German Blut, Dutch bloed, and Swedish blod form a clean Germanic cluster. The family resemblance is easy to see, especially once the words are placed side by side.",
+      "The Romance forms come from Latin sanguis: French sang, Spanish sangre, Italian sangue, and Romanian sânge. English speakers may already know this root indirectly through words like sanguine and consanguinity, even if nobody says consanguinity unless they are a lawyer, a genealogist, or trapped in a gothic novel.",
+      "BLOOD is a useful reminder that not every basic concept has one visible inherited root across Germanic and Romance. Sometimes the clearest lesson is the split itself: one meaning, two separate word families.",
     ],
   },
   modes: [

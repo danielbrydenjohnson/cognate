@@ -112,9 +112,9 @@ export const brotherConcept = {
     eyebrow: "Learn",
     title: "Brother, frater, and the Spanish detour.",
     paragraphs: [
-      "BROTHER continues the kinship pattern started by MOTHER and FATHER. English brother, German Bruder, Dutch broer, and Swedish bror all belong to the Germanic brother cluster, reaching back to an old Indo-European kinship word.",
+      "English brother, German Bruder, Dutch broer, and Swedish bror all belong to the Germanic brother cluster. These forms reach back to an old Indo-European kinship word, which is why the family resemblance is still visible.",
       "French frère, Italian fratello, and Romanian frate come through Latin frāter. Italian adds a diminutive ending, which is why fratello looks fuller than French frère or Romanian frate.",
-      "Spanish is the memorable outlier. Hermano comes from Latin germānus, a word meaning full or genuine, used in the sense of a full sibling. That is not a bug in the concept page. It is exactly the kind of detour that makes the page worth reading.",
+      "Spanish hermano follows a different path. It comes from Latin germānus, a word meaning full or genuine, used in the sense of a full sibling. It still belongs to the BROTHER concept, but not to the same immediate cluster as frère, fratello, and frate.",
     ],
   },
   modes: [

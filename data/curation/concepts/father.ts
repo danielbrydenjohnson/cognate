@@ -112,9 +112,9 @@ export const fatherConcept = {
     eyebrow: "Learn",
     title: "Father, pater, and the nursery word.",
     paragraphs: [
-      "FATHER is the natural partner to the existing MOTHER page. English father, German Vater, Dutch vader, and Swedish far all belong to the Germanic father cluster. The forms are close enough to feel familiar, but different enough to teach real sound change.",
-      "The Romance pater line gives French père, Spanish padre, and Italian padre. This is where the deeper Indo-European family pattern becomes visible: Germanic father and Latin pater are not random similarities. They are ancient relatives that changed in different directions.",
-      "Romanian is the useful complication. The everyday Romanian word tată comes from Latin tata, a nursery word, not from Latin pater. That means it belongs to the FATHER concept, but it needs its own cluster. Concept-first design wins again. A dictionary list would flatten this. Cognate can show the actual structure.",
+      "English father, German Vater, Dutch vader, and Swedish far all belong to the Germanic father cluster. The forms are close enough to feel familiar, but different enough to show real sound change.",
+      "The Romance pater line gives French père, Spanish padre, and Italian padre. Germanic father and Latin pater are not random similarities. They are ancient relatives that changed in different directions.",
+      "Romanian adds a useful complication. The everyday word tată comes from Latin tata, a nursery word, not from Latin pater. It belongs to the FATHER concept, but it needs its own path through the history.",
     ],
   },
   modes: [

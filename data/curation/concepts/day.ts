@@ -103,9 +103,9 @@ export const dayConcept = {
     eyebrow: "Learn",
     title: "The day word took more than one road.",
     paragraphs: [
-      "DAY pairs naturally with NIGHT. English day, German Tag, Dutch dag, and Swedish dag form a clear Germanic cluster. The shapes differ, but the family resemblance is visible enough for learners to feel the pattern quickly.",
-      "The Romance side is more interesting. Spanish día points fairly directly back to Latin diēs. French jour and Italian giorno instead come through Late Latin diurnum, a related form meaning daily or daytime. Romanian zi is compact, but it belongs in the same wider Latin day family.",
-      "The lesson is that even within Romance, languages do not always take the same route from Latin to the modern word. Cognate should show that divergence clearly, because otherwise learners get a fake sense that language families are tidier than they are.",
+      "English day, German Tag, Dutch dag, and Swedish dag form a clear Germanic cluster. The shapes differ, but the family resemblance is still visible enough to make the pattern easy to catch.",
+      "The Romance side is less tidy. Spanish día points fairly directly back to Latin diēs. French jour and Italian giorno instead come through Late Latin diurnum, a related form meaning daily or daytime. Romanian zi is compact, but it belongs in the same wider Latin day family.",
+      "DAY shows how even closely related languages can take different routes from Latin to the modern word. Language families are real, but they are not neat little filing cabinets. Naturally, history refused to use tabs.",
     ],
   },
   modes: [

@@ -103,9 +103,9 @@ export const eyeConcept = {
     eyebrow: "Learn",
     title: "The eye root hiding under different faces.",
     paragraphs: [
-      "EYE is a strong concept because the modern forms do not all look obviously related. English eye has become extremely short, while German Auge, Dutch oog, and Swedish öga preserve more of the old Germanic shape.",
+      "English eye has become extremely short, while German Auge, Dutch oog, and Swedish öga preserve more of the older Germanic shape. The relationship is real, but it is not equally obvious in every form.",
       "The Romance side comes from Latin oculus. Italian occhio is the easiest anchor, while Spanish ojo, Romanian ochi, and French œil show different degrees of reduction and sound change.",
-      "The deeper lesson is that both branches reach back to the same old Indo-European root connected with seeing and the eye. Cognate can show the Germanic and Romance clusters separately while still exposing the ancient connection underneath.",
+      "Underneath the Germanic and Romance clusters is a deeper Indo-European root connected with seeing and the eye. The modern words look different on the surface, but some of them are wearing very old historical disguises.",
     ],
   },
   modes: [
