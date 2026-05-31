@@ -176,7 +176,7 @@ export default function Home() {
             className="border border-rule bg-surface p-5 transition hover:border-accent hover:bg-bg"
           >
             <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-accent">
-              New feature
+              False friends
             </p>
 
             <h3 className="mt-3 font-serif text-28 leading-tight text-ink">
