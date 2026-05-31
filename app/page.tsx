@@ -4,6 +4,9 @@ import { getConcepts, getDailyConcept } from "@/lib/concepts";
 export default function Home() {
   const concepts = getConcepts();
   const dailyConcept = getDailyConcept();
+  const visibleModes = dailyConcept.modes.filter(
+    (mode) => mode.name !== "Test",
+  );
 
   return (
     <main className="min-h-screen px-5 py-6 sm:px-8 lg:px-12">
@@ -199,15 +202,15 @@ export default function Home() {
         <section className="grid gap-10 py-14 lg:grid-cols-[360px_1fr]">
           <div>
             <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
-              Product loop
+              Learning loop
             </p>
             <h2 className="mt-2 font-serif text-36 leading-tight text-ink">
               Not just a pretty graph.
             </h2>
           </div>
 
-          <div className="grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-5">
-            {dailyConcept.modes.map((mode) => (
+          <div className="grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-4">
+            {visibleModes.map((mode) => (
               <div key={mode.name} className="bg-surface p-4">
                 <p className="font-sans text-13 font-medium uppercase tracking-[0.16em] text-accent">
                   {mode.name}
