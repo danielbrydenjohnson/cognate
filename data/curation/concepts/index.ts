@@ -14,6 +14,10 @@ import { twoConcept } from "@/data/curation/concepts/two";
 import { eyeConcept } from "@/data/curation/concepts/eye";
 import { toothConcept } from "@/data/curation/concepts/tooth";
 import { bloodConcept } from "@/data/curation/concepts/blood";
+import { dayConcept } from "@/data/curation/concepts/day";
+import { milkConcept } from "@/data/curation/concepts/milk";
+import { brotherConcept } from "@/data/curation/concepts/brother";
+import { sisterConcept } from "@/data/curation/concepts/sister";
 import type { CognateConcept } from "@/data/concepts/types";
 
 export const curatedConcepts = [
@@ -33,4 +37,8 @@ export const curatedConcepts = [
   eyeConcept,
   toothConcept,
   bloodConcept,
+  dayConcept,
+  milkConcept,
+  brotherConcept,
+  sisterConcept,
 ] satisfies CognateConcept[];
