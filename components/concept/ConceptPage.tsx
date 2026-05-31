@@ -3,7 +3,6 @@ import type { CognateConcept } from "@/data/concepts/types";
 import { CognateCluster } from "@/components/concept/CognateCluster";
 import { ConceptClusterMap } from "@/components/concept/ConceptClusterMap";
 import { ConceptHero } from "@/components/concept/ConceptHero";
-import { ProductLoopPanel } from "@/components/concept/ProductLoopPanel";
 
 export function ConceptPage({ concept }: { concept: CognateConcept }) {
   return (
@@ -107,8 +106,6 @@ export function ConceptPage({ concept }: { concept: CognateConcept }) {
             </Link>
           </div>
         </section>
-
-        <ProductLoopPanel modes={concept.modes} />
       </div>
     </main>
   );
