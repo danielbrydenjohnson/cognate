@@ -6,11 +6,11 @@ export function ProductLoopPanel({ modes }: { modes: ProductMode[] }) {
       <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
           <p className="font-sans text-13 font-medium uppercase tracking-[0.18em] text-ink-muted">
-            Product loop
+            Next steps
           </p>
 
           <h2 className="mt-2 font-serif text-36 leading-tight text-ink">
-            What the user does next
+            What to explore next
           </h2>
         </div>
 
