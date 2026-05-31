@@ -103,9 +103,9 @@ export const sunConcept = {
     eyebrow: "Learn",
     title: "Two branches, one very old sun.",
     paragraphs: [
-      "SUN is a good first curation sprint concept because it looks simple, but it teaches a deeper pattern. English sun, German Sonne, and Dutch zon sit together comfortably as Germanic relatives. The resemblance is visible enough that the learner does not need much convincing.",
-      "The Romance side is also fairly transparent. Spanish sol and Italian sole point straight back to Latin sōl. Romanian soare is less obvious but belongs to the same inherited Romance story. French soleil is the interesting troublemaker because it comes through a Vulgar Latin diminutive form rather than staying as a plain sol shape.",
-      "The larger lesson is that Cognate should not stop at surface similarity. Germanic and Romance forms can sit in separate clusters while still sharing a deeper Indo-European ancestry. That is exactly the kind of pattern a concept-first view can expose without turning the page into a linguistic crime board.",
+      "English sun, German Sonne, and Dutch zon sit together comfortably as Germanic relatives. The resemblance is visible enough that the pattern does not need much explanation.",
+      "The Romance side is also fairly transparent. Spanish sol and Italian sole point straight back to Latin sōl. Romanian soare is less obvious but belongs to the same inherited Romance story. French soleil is the troublemaker because it comes through a Vulgar Latin diminutive form rather than staying as a plain sol shape.",
+      "Surface similarity is only the first layer. Germanic and Romance forms can sit in separate clusters while still sharing deeper Indo-European ancestry. The sun, as usual, has been around longer than everyone's filing system.",
     ],
   },
   modes: [

@@ -102,8 +102,8 @@ export const waterConcept = {
     title: "The easy side and the deceptive side.",
     paragraphs: [
       "The Germanic water words are satisfying because the pattern is obvious: English water, German Wasser, Dutch water, and Swedish vatten all keep enough of the old shape for the relationship to feel visible.",
-      "The Romance forms are a better test of Cognate. Spanish agua and Italian acqua make the Latin aqua connection easy. French eau and Romanian apă are less obvious, which is exactly where a concept-first view helps. The page can show the relationship without relying on surface similarity alone.",
-      "This matters because cognates are not just words that look alike. Sometimes history is visible at a glance. Sometimes it has to be explained. WATER gives both kinds of learning in one concept.",
+      "The Romance forms come from Latin aqua. Spanish agua and Italian acqua make the connection easy, while French eau and Romanian apă are less obvious. Same source, very different modern surfaces.",
+      "WATER shows both sides of cognate learning. Sometimes history is visible at a glance. Sometimes it has to be explained. The word family is still there, even when the modern spelling has done its best to hide the evidence.",
     ],
   },
   modes: [

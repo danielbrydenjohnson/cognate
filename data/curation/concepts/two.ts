@@ -103,9 +103,9 @@ export const twoConcept = {
     eyebrow: "Learn",
     title: "A number that survived almost everything.",
     paragraphs: [
-      "TWO is a good stress test because numbers are old, stable, and still weird enough to be interesting. English two, German zwei, Dutch twee, and Swedish två are all Germanic descendants of the old two numeral.",
-      "The Romance forms descend from Latin duo: French deux, Spanish dos, Italian due, and Romanian doi. Italian is the clearest anchor. French is the most compressed. Romanian keeps the family shape, but with its own ending.",
-      "The bigger point is that Germanic two and Romance duo are not separate accidents. They both go back to a much older Indo-European numeral. This is the kind of pattern that makes Cognate more than a list of translations. It shows why words differ, not just that they differ.",
+      "English two, German zwei, Dutch twee, and Swedish två are all Germanic descendants of the old two numeral. The forms are compact, old, and still recognisably related.",
+      "The Romance forms descend from Latin duo: French deux, Spanish dos, Italian due, and Romanian doi. Italian is the clearest anchor, French is the most compressed, and Romanian keeps the family shape with its own ending.",
+      "Germanic two and Romance duo are not separate accidents. They both go back to a much older Indo-European numeral. Numbers are stubborn little fossils, which is rude but helpful.",
     ],
   },
   modes: [

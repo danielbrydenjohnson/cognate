@@ -103,9 +103,9 @@ export const starConcept = {
     eyebrow: "Learn",
     title: "The star root hiding in plain sight.",
     paragraphs: [
-      "STAR is exactly the kind of concept Cognate should handle well. English star, German Stern, Dutch ster, and Swedish stjärna are all Germanic relatives. Some are obvious. Swedish is the one that makes the user work a bit.",
-      "The Romance side comes from Latin stella. Italian stella is almost unchanged. Spanish estrella is still visible. Romanian stea is compressed. French étoile looks like it wandered in from another app entirely, which makes it useful rather than annoying.",
-      "The deeper point is that the Germanic and Romance branches are not random lookalikes. They both reach back to an older Indo-European star root. Cognate can show the modern clusters separately while still teaching the ancient connection underneath.",
+      "English star, German Stern, Dutch ster, and Swedish stjärna are all Germanic relatives. Some are obvious. Swedish makes the reader work a little harder, because apparently even stars enjoy being dramatic.",
+      "The Romance side comes from Latin stella. Italian stella is almost unchanged. Spanish estrella is still visible. Romanian stea is compressed. French étoile looks less obvious, but it also belongs to this family.",
+      "The Germanic and Romance branches are not random lookalikes. They both reach back to an older Indo-European star root. The modern clusters are separate, while the deeper connection sits underneath them.",
     ],
   },
   modes: [

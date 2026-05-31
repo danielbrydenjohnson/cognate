@@ -103,9 +103,9 @@ export const toothConcept = {
     eyebrow: "Learn",
     title: "A clean sound-change lesson with teeth.",
     paragraphs: [
-      "TOOTH is one of the best beginner concepts because the pattern teaches real historical linguistics without making the learner suffer for it. English tooth, Dutch tand, and Swedish tand preserve the Germanic t shape. German Zahn belongs with them too, but later German sound change pushed the initial sound toward /ts/.",
-      "The Romance side is the dental family: French dent, Spanish diente, Italian dente, and Romanian dinte. This is the same root family English learners already know from dentist, dental, and orthodontist.",
-      "The deeper lesson is Grimm's Law in miniature. The older Indo-European d seen in the Latin dent family corresponds to Germanic t in tooth and tand. That kind of pattern is exactly what Cognate should make memorable.",
+      "English tooth, Dutch tand, and Swedish tand preserve the Germanic t shape. German Zahn belongs with them too, but later German sound change pushed the initial sound toward /ts/.",
+      "The Romance side is the dental family: French dent, Spanish diente, Italian dente, and Romanian dinte. English speakers already know this root through dentist, dental, and orthodontist.",
+      "TOOTH gives Grimm's Law in miniature. The older Indo-European d seen in the Latin dent family corresponds to Germanic t in tooth and tand. A small pattern, but a sharp one.",
     ],
   },
   modes: [
