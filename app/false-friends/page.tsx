@@ -66,9 +66,9 @@ export default function FalseFriendsPage() {
 
           <p className="mt-5 max-w-[760px] text-18 leading-body text-ink-muted">
             False friends are words that look familiar across languages but
-            mean something different. They are useful because they expose where
-            pattern recognition helps, and where it gets you quietly mugged in
-            an alley by vocabulary.
+            mean something different. They expose where pattern recognition
+            helps, and where it gets you quietly mugged in an alley by
+            vocabulary.
           </p>
         </section>
 

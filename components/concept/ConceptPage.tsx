@@ -92,10 +92,10 @@ export function ConceptPage({ concept }: { concept: CognateConcept }) {
 
           <div className="max-w-[720px]">
             <p className="text-18 leading-body text-ink-muted">
-              Cognates are useful because they reveal real shared history. But
-              some words only look familiar while meaning something different.
-              Those are false friends, and they are exactly where pattern
-              recognition can betray you.
+              Cognates reveal real shared history. But some words only look
+              familiar while meaning something different. Those are false
+              friends, and they are exactly where pattern recognition can
+              betray you.
             </p>
 
             <Link
